@@ -136,17 +136,10 @@ export function Layout({ children }: LayoutProps) {
         {children}
       </main>
 
-      {/* Floating Emergency Button for Mobile */}
-      <div className="fixed bottom-6 right-6 sm:hidden z-50">
-        <Link to="/emergency">
-          <Button 
-            className="bg-emergency hover:bg-emergency/90 text-white rounded-full w-14 h-14 shadow-lg hover:shadow-xl transition-all duration-200"
-            size="sm"
-            onClick={closeMobileMenu}
-          >
-            <Phone className="h-6 w-6" />
-          </Button>
-        </Link>
+      {/* Floating Emergency Button & Quick Actions for Mobile */}
+      <div className="sm:hidden">
+        <EmergencyButton variant="floating" />
+        <QuickEmergencyActions />
       </div>
 
       {/* Bottom Navigation for Mobile */}
