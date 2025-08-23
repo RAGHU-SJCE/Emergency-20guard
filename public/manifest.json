@@ -1,0 +1,80 @@
+{
+  "name": "EmergencyGuard - Emergency Safety App",
+  "short_name": "EmergencyGuard",
+  "description": "Your trusted companion for emergency preparedness and rapid response",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#60a5fa",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "categories": ["safety", "emergency", "health", "utilities"],
+  "lang": "en-US",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "apple-touch-icon"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Emergency Call",
+      "short_name": "Emergency",
+      "description": "Quick access to emergency services",
+      "url": "/emergency",
+      "icons": [
+        {
+          "src": "/emergency-icon.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Emergency Contacts",
+      "short_name": "Contacts",
+      "description": "Manage emergency contacts",
+      "url": "/contacts",
+      "icons": [
+        {
+          "src": "/contacts-icon.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  }
+}
