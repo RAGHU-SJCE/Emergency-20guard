@@ -1,5 +1,6 @@
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
+import { EmergencyButton } from "@/components/EmergencyButton";
 import { Link } from "react-router-dom";
 import {
   Shield,
