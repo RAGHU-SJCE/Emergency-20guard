@@ -1,6 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { EmergencyButton, QuickEmergencyActions } from "@/components/EmergencyButton";
+import {
+  EmergencyButton,
+  QuickEmergencyActions,
+} from "@/components/EmergencyButton";
 import { Shield, Phone, Users, History, Menu, X } from "lucide-react";
 import { useState } from "react";
 
@@ -33,8 +36,8 @@ export function Layout({ children }: LayoutProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className="flex items-center space-x-2 min-w-0 flex-shrink-0"
               onClick={closeMobileMenu}
             >
@@ -124,7 +127,7 @@ export function Layout({ children }: LayoutProps) {
 
       {/* Overlay for mobile menu */}
       {mobileMenuOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
           onClick={closeMobileMenu}
           aria-hidden="true"
@@ -132,9 +135,7 @@ export function Layout({ children }: LayoutProps) {
       )}
 
       {/* Main Content */}
-      <main className="flex-1">
-        {children}
-      </main>
+      <main className="flex-1">{children}</main>
 
       {/* Floating Emergency Button & Quick Actions for Mobile */}
       <div className="sm:hidden">
@@ -160,12 +161,15 @@ export function Layout({ children }: LayoutProps) {
                 }`}
               >
                 <Icon className="h-5 w-5 mb-1" />
-                <span className="text-xs font-medium">{
-                  item.name === "Emergency Contacts" ? "Contacts" :
-                  item.name === "Emergency History" ? "History" :
-                  item.name === "Emergency Call" ? "Call" :
-                  item.name
-                }</span>
+                <span className="text-xs font-medium">
+                  {item.name === "Emergency Contacts"
+                    ? "Contacts"
+                    : item.name === "Emergency History"
+                      ? "History"
+                      : item.name === "Emergency Call"
+                        ? "Call"
+                        : item.name}
+                </span>
               </Link>
             );
           })}
@@ -185,7 +189,8 @@ export function Layout({ children }: LayoutProps) {
                 <span className="text-xl font-bold">EmergencyGuard</span>
               </div>
               <p className="text-slate-300">
-                Your trusted companion for emergency preparedness and rapid response.
+                Your trusted companion for emergency preparedness and rapid
+                response.
               </p>
             </div>
 
@@ -211,13 +216,13 @@ export function Layout({ children }: LayoutProps) {
             <div>
               <h3 className="font-semibold mb-4">Support</h3>
               <div className="space-y-2">
-                <a 
+                <a
                   href="mailto:support@emergencyguard.com"
                   className="text-slate-300 hover:text-white transition-colors block min-h-[44px] flex items-center"
                 >
                   support@emergencyguard.com
                 </a>
-                <a 
+                <a
                   href="mailto:privacy@emergencyguard.com"
                   className="text-slate-300 hover:text-white transition-colors block min-h-[44px] flex items-center"
                 >

@@ -9,7 +9,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90 hover:scale-105 hover:shadow-lg",
+        default:
+          "bg-primary text-primary-foreground hover:bg-primary/90 hover:scale-105 hover:shadow-lg",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90 hover:scale-105 hover:shadow-lg",
         outline:
@@ -18,9 +19,11 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:scale-105 hover:shadow-lg",
         ghost: "hover:bg-accent hover:text-accent-foreground hover:scale-105",
         link: "text-primary underline-offset-4 hover:underline",
-        emergency: "bg-emergency text-emergency-foreground hover:bg-emergency/90 hover:scale-105 hover:shadow-lg animate-pulse",
+        emergency:
+          "bg-emergency text-emergency-foreground hover:bg-emergency/90 hover:scale-105 hover:shadow-lg animate-pulse",
         safe: "bg-safe text-safe-foreground hover:bg-safe/90 hover:scale-105 hover:shadow-lg",
-        warning: "bg-warning text-warning-foreground hover:bg-warning/90 hover:scale-105 hover:shadow-lg",
+        warning:
+          "bg-warning text-warning-foreground hover:bg-warning/90 hover:scale-105 hover:shadow-lg",
       },
       size: {
         default: "h-11 px-4 py-2 min-h-[44px]",

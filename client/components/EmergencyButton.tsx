@@ -10,17 +10,17 @@ interface EmergencyButtonProps {
   showAlert?: boolean;
 }
 
-export function EmergencyButton({ 
-  variant = "inline", 
-  className = "", 
-  showAlert = false 
+export function EmergencyButton({
+  variant = "inline",
+  className = "",
+  showAlert = false,
 }: EmergencyButtonProps) {
   const deviceFeatures = useDeviceFeatures();
   const [isPressed, setIsPressed] = useState(false);
 
   const handleEmergencyPress = () => {
     setIsPressed(true);
-    
+
     // Haptic feedback
     if (deviceFeatures.vibration.supported) {
       deviceFeatures.vibration.vibrate([200, 100, 200]);
@@ -31,7 +31,7 @@ export function EmergencyButton({
   };
 
   const baseClasses = "transition-all duration-200 font-bold active:scale-95";
-  
+
   const variantClasses = {
     floating: `
       fixed bottom-6 right-6 z-50 rounded-full w-16 h-16 shadow-2xl
@@ -39,7 +39,7 @@ export function EmergencyButton({
       hover:from-emergency/90 hover:to-red-600/90
       border-4 border-white/20
       backdrop-blur-sm
-      ${isPressed ? 'scale-110 shadow-3xl' : 'hover:scale-110'}
+      ${isPressed ? "scale-110 shadow-3xl" : "hover:scale-110"}
       emergency-pulse
     `,
     inline: `
@@ -47,7 +47,7 @@ export function EmergencyButton({
       hover:from-emergency/90 hover:to-red-600/90
       text-white border-2 border-emergency/20
       shadow-lg hover:shadow-xl
-      ${isPressed ? 'scale-105' : 'hover:scale-105'}
+      ${isPressed ? "scale-105" : "hover:scale-105"}
       emergency-pulse
     `,
     hero: `
@@ -56,10 +56,10 @@ export function EmergencyButton({
       text-white border-2 border-emergency/20
       shadow-xl hover:shadow-2xl
       text-lg font-bold py-4 px-8 rounded-xl
-      ${isPressed ? 'scale-105' : 'hover:scale-105'}
+      ${isPressed ? "scale-105" : "hover:scale-105"}
       emergency-pulse
       min-h-[64px]
-    `
+    `,
   };
 
   if (variant === "floating") {
@@ -125,14 +125,11 @@ export function QuickEmergencyActions() {
     }
 
     // Send notification
-    if (deviceFeatures.notifications.permission === 'granted') {
-      deviceFeatures.notifications.sendNotification(
-        `Quick Action: ${action}`,
-        {
-          body: `${action} action triggered`,
-          tag: 'quick-action',
-        }
-      );
+    if (deviceFeatures.notifications.permission === "granted") {
+      deviceFeatures.notifications.sendNotification(`Quick Action: ${action}`, {
+        body: `${action} action triggered`,
+        tag: "quick-action",
+      });
     }
   };
 
@@ -143,7 +140,7 @@ export function QuickEmergencyActions() {
         <Button
           size="icon-lg"
           className="rounded-full bg-primary/90 hover:bg-primary text-white shadow-lg"
-          onClick={() => handleQuickAction('Contact Alert')}
+          onClick={() => handleQuickAction("Contact Alert")}
           aria-label="Alert Emergency Contacts"
         >
           <Phone className="h-5 w-5" />
@@ -153,7 +150,7 @@ export function QuickEmergencyActions() {
         <Button
           size="icon-lg"
           className="rounded-full bg-secondary/90 hover:bg-secondary text-white shadow-lg"
-          onClick={() => handleQuickAction('Location Share')}
+          onClick={() => handleQuickAction("Location Share")}
           aria-label="Share Location"
         >
           <Zap className="h-5 w-5" />
