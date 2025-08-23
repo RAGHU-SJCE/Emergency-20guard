@@ -2,13 +2,73 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hello world project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0" />
+    
+    <!-- App Info -->
+    <title>EmergencyGuard - Emergency Safety App</title>
+    <meta name="description" content="Your trusted companion for emergency preparedness and rapid response" />
+    <meta name="keywords" content="emergency, safety, emergency contacts, emergency services, safety app" />
+    <meta name="author" content="EmergencyGuard" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Theme Colors -->
+    <meta name="theme-color" content="#60a5fa" />
+    <meta name="msapplication-TileColor" content="#60a5fa" />
+    <meta name="msapplication-navbutton-color" content="#60a5fa" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    
+    <!-- App Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icon-180.png" />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="EmergencyGuard" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="EmergencyGuard" />
+    
+    <!-- Security and Performance -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="format-detection" content="telephone=yes" />
+    <meta name="format-detection" content="address=yes" />
+    
+    <!-- Social Media / Open Graph -->
+    <meta property="og:title" content="EmergencyGuard - Emergency Safety App" />
+    <meta property="og:description" content="Your trusted companion for emergency preparedness and rapid response" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="EmergencyGuard" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="EmergencyGuard - Emergency Safety App" />
+    <meta name="twitter:description" content="Your trusted companion for emergency preparedness and rapid response" />
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
   </head>
 
   <body>
     <div id="root"></div>
 
     <script type="module" src="/client/App.tsx"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
   </body>
 </html>
