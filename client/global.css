@@ -101,6 +101,15 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --emergency: 0 84% 60%;
+    --emergency-foreground: 0 0% 100%;
+
+    --safe: 142 76% 36%;
+    --safe-foreground: 0 0% 100%;
+
+    --warning: 43 96% 56%;
+    --warning-foreground: 0 0% 0%;
   }
 }
 
