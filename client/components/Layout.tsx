@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { EmergencyButton, QuickEmergencyActions } from "@/components/EmergencyButton";
 import { Shield, Phone, Users, History, Menu, X } from "lucide-react";
 import { useState } from "react";
 
