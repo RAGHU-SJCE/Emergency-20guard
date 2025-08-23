@@ -1,43 +1,56 @@
 import { Layout } from "@/components/Layout";
-import { Shield, AlertTriangle, Users, Database, Gavel, RefreshCw } from "lucide-react";
+import {
+  Shield,
+  AlertTriangle,
+  Users,
+  Database,
+  Gavel,
+  RefreshCw,
+} from "lucide-react";
 
 export default function TermsOfService() {
   const sections = [
     {
       icon: Users,
       title: "Eligibility",
-      content: "You must be at least 13 years old to use the app."
+      content: "You must be at least 13 years old to use the app.",
     },
     {
       icon: Shield,
       title: "Use of Service",
-      content: "EmergencyGuard is for personal safety and emergency assistance only. Any misuse or fraudulent activity is strictly prohibited."
+      content:
+        "EmergencyGuard is for personal safety and emergency assistance only. Any misuse or fraudulent activity is strictly prohibited.",
     },
     {
       icon: AlertTriangle,
       title: "User Responsibilities",
-      content: "You are responsible for keeping your contact and location information accurate and up-to-date."
+      content:
+        "You are responsible for keeping your contact and location information accurate and up-to-date.",
     },
     {
       icon: Gavel,
       title: "Service Limitations",
-      content: "While we strive to provide reliable emergency connection, we do not guarantee uninterrupted service or immediate response from emergency contacts or authorities."
+      content:
+        "While we strive to provide reliable emergency connection, we do not guarantee uninterrupted service or immediate response from emergency contacts or authorities.",
     },
     {
       icon: Database,
       title: "Data Usage",
-      content: "Your location and contact data may be used to facilitate emergency help and notifications."
+      content:
+        "Your location and contact data may be used to facilitate emergency help and notifications.",
     },
     {
       icon: AlertTriangle,
       title: "Termination",
-      content: "We may suspend or terminate accounts that violate these terms without prior notice."
+      content:
+        "We may suspend or terminate accounts that violate these terms without prior notice.",
     },
     {
       icon: RefreshCw,
       title: "Changes",
-      content: "Terms may be updated periodically. Continued use signifies acceptance of changes."
-    }
+      content:
+        "Terms may be updated periodically. Continued use signifies acceptance of changes.",
+    },
   ];
 
   return (
@@ -54,7 +67,8 @@ export default function TermsOfService() {
               Terms of Service
             </h1>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Welcome to EmergencyGuard. By using our app, you agree to the following terms:
+              Welcome to EmergencyGuard. By using our app, you agree to the
+              following terms:
             </p>
           </div>
 
@@ -63,7 +77,7 @@ export default function TermsOfService() {
             {sections.map((section, index) => {
               const Icon = section.icon;
               return (
-                <div 
+                <div
                   key={index}
                   className="bg-white rounded-xl p-6 lg:p-8 shadow-sm border border-slate-200"
                 >
@@ -92,11 +106,12 @@ export default function TermsOfService() {
                 Questions About Our Terms?
               </h2>
               <p className="text-slate-600 mb-6">
-                If you have any questions about these Terms of Service, please don't hesitate to contact us.
+                If you have any questions about these Terms of Service, please
+                don't hesitate to contact us.
               </p>
               <div className="inline-flex items-center px-6 py-3 bg-white rounded-lg border border-slate-200">
                 <span className="text-slate-600 mr-2">Email us at:</span>
-                <a 
+                <a
                   href="mailto:support@emergencyguard.com"
                   className="text-primary font-medium hover:text-primary/80 transition-colors"
                 >

@@ -1,16 +1,16 @@
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { 
-  Shield, 
-  Phone, 
-  Users, 
-  Clock, 
-  MapPin, 
+import {
+  Shield,
+  Phone,
+  Users,
+  Clock,
+  MapPin,
   AlertTriangle,
   CheckCircle,
   Zap,
-  Heart
+  Heart,
 } from "lucide-react";
 
 export default function Index() {
@@ -18,40 +18,46 @@ export default function Index() {
     {
       icon: Phone,
       title: "Instant Emergency Calls",
-      description: "Connect to emergency services with one tap, even when you can't speak."
+      description:
+        "Connect to emergency services with one tap, even when you can't speak.",
     },
     {
       icon: Users,
       title: "Emergency Contacts",
-      description: "Automatically notify your trusted contacts when an emergency occurs."
+      description:
+        "Automatically notify your trusted contacts when an emergency occurs.",
     },
     {
       icon: MapPin,
       title: "Location Sharing",
-      description: "Share your real-time location with emergency responders and contacts."
+      description:
+        "Share your real-time location with emergency responders and contacts.",
     },
     {
       icon: Clock,
       title: "Emergency History",
-      description: "Keep track of all emergency events with detailed logs and reports."
+      description:
+        "Keep track of all emergency events with detailed logs and reports.",
     },
     {
       icon: Shield,
       title: "Secure & Private",
-      description: "Your data is encrypted and only used when you need emergency help."
+      description:
+        "Your data is encrypted and only used when you need emergency help.",
     },
     {
       icon: Zap,
       title: "Lightning Fast",
-      description: "Optimized for speed when every second counts in an emergency."
-    }
+      description:
+        "Optimized for speed when every second counts in an emergency.",
+    },
   ];
 
   const stats = [
     { number: "99.9%", label: "Uptime Reliability" },
     { number: "<3s", label: "Average Response Time" },
     { number: "24/7", label: "Emergency Support" },
-    { number: "100%", label: "Secure & Encrypted" }
+    { number: "100%", label: "Secure & Encrypted" },
   ];
 
   return (
@@ -66,19 +72,23 @@ export default function Index() {
                 Trusted Emergency Protection
               </div>
             </div>
-            
+
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-secondary mb-6">
               Your Safety is Our
               <span className="text-primary block">Priority</span>
             </h1>
-            
+
             <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-10">
-              EmergencyGuard provides instant access to emergency services, 
-              automatic contact notifications, and peace of mind when you need it most.
+              EmergencyGuard provides instant access to emergency services,
+              automatic contact notifications, and peace of mind when you need
+              it most.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button size="lg" className="bg-emergency hover:bg-emergency/90 text-white">
+              <Button
+                size="lg"
+                className="bg-emergency hover:bg-emergency/90 text-white"
+              >
                 <Phone className="h-5 w-5 mr-2" />
                 Emergency Call Now
               </Button>
@@ -125,7 +135,7 @@ export default function Index() {
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <div 
+                <div
                   key={index}
                   className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow"
                 >
@@ -135,9 +145,7 @@ export default function Index() {
                   <h3 className="text-xl font-semibold text-secondary mb-2">
                     {feature.title}
                   </h3>
-                  <p className="text-slate-600">
-                    {feature.description}
-                  </p>
+                  <p className="text-slate-600">{feature.description}</p>
                 </div>
               );
             })}
@@ -162,7 +170,9 @@ export default function Index() {
               <div className="bg-emergency text-white rounded-xl p-6 text-center hover:bg-emergency/90 transition-colors">
                 <Phone className="h-8 w-8 mx-auto mb-4" />
                 <h3 className="font-semibold mb-2">Emergency Call</h3>
-                <p className="text-sm opacity-90">Instant connection to emergency services</p>
+                <p className="text-sm opacity-90">
+                  Instant connection to emergency services
+                </p>
               </div>
             </Link>
 
@@ -170,7 +180,9 @@ export default function Index() {
               <div className="bg-primary text-white rounded-xl p-6 text-center hover:bg-primary/90 transition-colors">
                 <Users className="h-8 w-8 mx-auto mb-4" />
                 <h3 className="font-semibold mb-2">Emergency Contacts</h3>
-                <p className="text-sm opacity-90">Manage your emergency contact list</p>
+                <p className="text-sm opacity-90">
+                  Manage your emergency contact list
+                </p>
               </div>
             </Link>
 
@@ -203,10 +215,12 @@ export default function Index() {
                 Emergency Preparedness Tips
               </h2>
             </div>
-            
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div>
-                <h3 className="font-semibold text-secondary mb-4">Before an Emergency</h3>
+                <h3 className="font-semibold text-secondary mb-4">
+                  Before an Emergency
+                </h3>
                 <ul className="space-y-3 text-slate-600">
                   <li className="flex items-start">
                     <Heart className="h-5 w-5 text-safe mr-3 mt-0.5 flex-shrink-0" />
@@ -214,7 +228,8 @@ export default function Index() {
                   </li>
                   <li className="flex items-start">
                     <Heart className="h-5 w-5 text-safe mr-3 mt-0.5 flex-shrink-0" />
-                    Ensure location services are enabled for accurate positioning
+                    Ensure location services are enabled for accurate
+                    positioning
                   </li>
                   <li className="flex items-start">
                     <Heart className="h-5 w-5 text-safe mr-3 mt-0.5 flex-shrink-0" />
@@ -222,9 +237,11 @@ export default function Index() {
                   </li>
                 </ul>
               </div>
-              
+
               <div>
-                <h3 className="font-semibold text-secondary mb-4">During an Emergency</h3>
+                <h3 className="font-semibold text-secondary mb-4">
+                  During an Emergency
+                </h3>
                 <ul className="space-y-3 text-slate-600">
                   <li className="flex items-start">
                     <Heart className="h-5 w-5 text-safe mr-3 mt-0.5 flex-shrink-0" />
@@ -232,7 +249,8 @@ export default function Index() {
                   </li>
                   <li className="flex items-start">
                     <Heart className="h-5 w-5 text-safe mr-3 mt-0.5 flex-shrink-0" />
-                    Your contacts will be automatically notified of your situation
+                    Your contacts will be automatically notified of your
+                    situation
                   </li>
                   <li className="flex items-start">
                     <Heart className="h-5 w-5 text-safe mr-3 mt-0.5 flex-shrink-0" />

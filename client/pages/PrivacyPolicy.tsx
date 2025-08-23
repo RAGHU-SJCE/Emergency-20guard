@@ -1,46 +1,75 @@
 import { Layout } from "@/components/Layout";
-import { Shield, MapPin, Users, Lock, Settings, Scale, Eye } from "lucide-react";
+import {
+  Shield,
+  MapPin,
+  Users,
+  Lock,
+  Settings,
+  Scale,
+  Eye,
+} from "lucide-react";
 
 export default function PrivacyPolicy() {
   const sections = [
     {
       icon: Eye,
       title: "Information Collected",
-      content: "We collect your name, contact details, location data, and emergency contacts to provide timely assistance."
+      content:
+        "We collect your name, contact details, location data, and emergency contacts to provide timely assistance.",
     },
     {
       icon: MapPin,
       title: "Location Data",
-      content: "Real-time location is used only during emergencies or when you trigger alerts."
+      content:
+        "Real-time location is used only during emergencies or when you trigger alerts.",
     },
     {
       icon: Users,
       title: "Contact Sharing",
-      content: "Emergency contacts you add will be notified during critical alerts. We do not sell or share your data with third parties."
+      content:
+        "Emergency contacts you add will be notified during critical alerts. We do not sell or share your data with third parties.",
     },
     {
       icon: Lock,
       title: "Data Security",
-      content: "All data is encrypted in transit and at rest. We follow industry standards for security."
+      content:
+        "All data is encrypted in transit and at rest. We follow industry standards for security.",
     },
     {
       icon: Settings,
       title: "User Control",
-      content: "You can update or delete your personal data anytime from app settings."
+      content:
+        "You can update or delete your personal data anytime from app settings.",
     },
     {
       icon: Scale,
       title: "Legal Compliance",
-      content: "Data may be shared with authorities only in genuine emergency situations as required by law."
-    }
+      content:
+        "Data may be shared with authorities only in genuine emergency situations as required by law.",
+    },
   ];
 
   const dataTypes = [
-    { type: "Personal Information", examples: "Name, phone number, email address" },
-    { type: "Location Data", examples: "GPS coordinates, emergency location history" },
-    { type: "Emergency Contacts", examples: "Contact names, phone numbers, relationship" },
-    { type: "Usage Data", examples: "App usage patterns, emergency response times" },
-    { type: "Device Information", examples: "Device type, operating system, app version" }
+    {
+      type: "Personal Information",
+      examples: "Name, phone number, email address",
+    },
+    {
+      type: "Location Data",
+      examples: "GPS coordinates, emergency location history",
+    },
+    {
+      type: "Emergency Contacts",
+      examples: "Contact names, phone numbers, relationship",
+    },
+    {
+      type: "Usage Data",
+      examples: "App usage patterns, emergency response times",
+    },
+    {
+      type: "Device Information",
+      examples: "Device type, operating system, app version",
+    },
   ];
 
   return (
@@ -71,22 +100,30 @@ export default function PrivacyPolicy() {
                 <div className="w-12 h-12 bg-safe/10 rounded-lg flex items-center justify-center mx-auto mb-3">
                   <Shield className="h-6 w-6 text-safe" />
                 </div>
-                <h3 className="font-semibold text-secondary mb-2">Transparency</h3>
-                <p className="text-sm text-slate-600">Clear about what data we collect and why</p>
+                <h3 className="font-semibold text-secondary mb-2">
+                  Transparency
+                </h3>
+                <p className="text-sm text-slate-600">
+                  Clear about what data we collect and why
+                </p>
               </div>
               <div>
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
                   <Lock className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="font-semibold text-secondary mb-2">Security</h3>
-                <p className="text-sm text-slate-600">Industry-standard encryption and protection</p>
+                <p className="text-sm text-slate-600">
+                  Industry-standard encryption and protection
+                </p>
               </div>
               <div>
                 <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
                   <Settings className="h-6 w-6 text-secondary" />
                 </div>
                 <h3 className="font-semibold text-secondary mb-2">Control</h3>
-                <p className="text-sm text-slate-600">You control your data and privacy settings</p>
+                <p className="text-sm text-slate-600">
+                  You control your data and privacy settings
+                </p>
               </div>
             </div>
           </div>
@@ -98,12 +135,14 @@ export default function PrivacyPolicy() {
             </h2>
             <div className="space-y-4">
               {dataTypes.map((data, index) => (
-                <div 
+                <div
                   key={index}
                   className="bg-white rounded-lg p-4 border border-slate-200 flex justify-between items-center"
                 >
                   <div>
-                    <h3 className="font-semibold text-secondary">{data.type}</h3>
+                    <h3 className="font-semibold text-secondary">
+                      {data.type}
+                    </h3>
                     <p className="text-sm text-slate-600">{data.examples}</p>
                   </div>
                   <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
@@ -122,7 +161,7 @@ export default function PrivacyPolicy() {
             {sections.map((section, index) => {
               const Icon = section.icon;
               return (
-                <div 
+                <div
                   key={index}
                   className="bg-white rounded-xl p-6 lg:p-8 shadow-sm border border-slate-200"
                 >
@@ -146,26 +185,34 @@ export default function PrivacyPolicy() {
 
           {/* Your Rights */}
           <div className="mb-12 bg-white rounded-xl p-6 lg:p-8 shadow-sm border border-slate-200">
-            <h2 className="text-2xl font-semibold text-secondary mb-6">Your Privacy Rights</h2>
+            <h2 className="text-2xl font-semibold text-secondary mb-6">
+              Your Privacy Rights
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <div className="w-6 h-6 bg-safe/10 rounded-full flex items-center justify-center">
                     <span className="text-safe font-bold text-sm">✓</span>
                   </div>
-                  <span className="text-slate-600">Access your personal data</span>
+                  <span className="text-slate-600">
+                    Access your personal data
+                  </span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-6 h-6 bg-safe/10 rounded-full flex items-center justify-center">
                     <span className="text-safe font-bold text-sm">✓</span>
                   </div>
-                  <span className="text-slate-600">Correct inaccurate information</span>
+                  <span className="text-slate-600">
+                    Correct inaccurate information
+                  </span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-6 h-6 bg-safe/10 rounded-full flex items-center justify-center">
                     <span className="text-safe font-bold text-sm">✓</span>
                   </div>
-                  <span className="text-slate-600">Delete your account and data</span>
+                  <span className="text-slate-600">
+                    Delete your account and data
+                  </span>
                 </div>
               </div>
               <div className="space-y-4">
@@ -173,7 +220,9 @@ export default function PrivacyPolicy() {
                   <div className="w-6 h-6 bg-safe/10 rounded-full flex items-center justify-center">
                     <span className="text-safe font-bold text-sm">✓</span>
                   </div>
-                  <span className="text-slate-600">Control data sharing preferences</span>
+                  <span className="text-slate-600">
+                    Control data sharing preferences
+                  </span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-6 h-6 bg-safe/10 rounded-full flex items-center justify-center">
@@ -185,7 +234,9 @@ export default function PrivacyPolicy() {
                   <div className="w-6 h-6 bg-safe/10 rounded-full flex items-center justify-center">
                     <span className="text-safe font-bold text-sm">✓</span>
                   </div>
-                  <span className="text-slate-600">Opt out of non-essential features</span>
+                  <span className="text-slate-600">
+                    Opt out of non-essential features
+                  </span>
                 </div>
               </div>
             </div>
@@ -198,11 +249,12 @@ export default function PrivacyPolicy() {
                 Privacy Questions?
               </h2>
               <p className="text-slate-600 mb-6">
-                If you have any questions about this Privacy Policy or how we handle your data, please contact us.
+                If you have any questions about this Privacy Policy or how we
+                handle your data, please contact us.
               </p>
               <div className="inline-flex items-center px-6 py-3 bg-white rounded-lg border border-slate-200">
                 <span className="text-slate-600 mr-2">Email us at:</span>
-                <a 
+                <a
                   href="mailto:privacy@emergencyguard.com"
                   className="text-primary font-medium hover:text-primary/80 transition-colors"
                 >

@@ -32,7 +32,9 @@ export function Layout({ children }: LayoutProps) {
               <div className="p-2 bg-primary rounded-lg">
                 <Shield className="h-6 w-6 text-white" />
               </div>
-              <span className="text-xl font-bold text-secondary">EmergencyGuard</span>
+              <span className="text-xl font-bold text-secondary">
+                EmergencyGuard
+              </span>
             </Link>
 
             {/* Navigation */}
@@ -67,9 +69,7 @@ export function Layout({ children }: LayoutProps) {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1">
-        {children}
-      </main>
+      <main className="flex-1">{children}</main>
 
       {/* Footer */}
       <footer className="bg-secondary text-white mt-16">
@@ -84,7 +84,8 @@ export function Layout({ children }: LayoutProps) {
                 <span className="text-xl font-bold">EmergencyGuard</span>
               </div>
               <p className="text-slate-300">
-                Your trusted companion for emergency preparedness and rapid response.
+                Your trusted companion for emergency preparedness and rapid
+                response.
               </p>
             </div>
 

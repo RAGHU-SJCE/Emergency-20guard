@@ -1,13 +1,13 @@
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { 
-  Phone, 
-  AlertTriangle, 
-  MapPin, 
+import {
+  Phone,
+  AlertTriangle,
+  MapPin,
   Clock,
   Shield,
   Heart,
-  Users
+  Users,
 } from "lucide-react";
 
 export default function EmergencyCall() {
@@ -20,8 +20,13 @@ export default function EmergencyCall() {
             <div className="flex items-center justify-center text-center">
               <AlertTriangle className="h-6 w-6 text-emergency mr-3" />
               <div>
-                <h2 className="text-lg font-semibold text-emergency mb-1">Emergency Services</h2>
-                <p className="text-emergency/80">This is a demonstration page. In a real emergency, call 911 immediately.</p>
+                <h2 className="text-lg font-semibold text-emergency mb-1">
+                  Emergency Services
+                </h2>
+                <p className="text-emergency/80">
+                  This is a demonstration page. In a real emergency, call 911
+                  immediately.
+                </p>
               </div>
             </div>
           </div>
@@ -36,7 +41,8 @@ export default function EmergencyCall() {
               Emergency Call Center
             </h1>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Quick access to emergency services and immediate assistance when you need it most.
+              Quick access to emergency services and immediate assistance when
+              you need it most.
             </p>
           </div>
 
@@ -45,7 +51,9 @@ export default function EmergencyCall() {
             <div className="bg-emergency text-white rounded-xl p-8 text-center">
               <Phone className="h-12 w-12 mx-auto mb-4" />
               <h3 className="text-2xl font-bold mb-4">Call 911</h3>
-              <p className="mb-6 opacity-90">Connect directly to emergency services</p>
+              <p className="mb-6 opacity-90">
+                Connect directly to emergency services
+              </p>
               <Button className="bg-white text-emergency hover:bg-slate-100 w-full">
                 Emergency Call
               </Button>
@@ -54,7 +62,9 @@ export default function EmergencyCall() {
             <div className="bg-primary text-white rounded-xl p-8 text-center">
               <Users className="h-12 w-12 mx-auto mb-4" />
               <h3 className="text-2xl font-bold mb-4">Alert Contacts</h3>
-              <p className="mb-6 opacity-90">Notify your emergency contacts immediately</p>
+              <p className="mb-6 opacity-90">
+                Notify your emergency contacts immediately
+              </p>
               <Button className="bg-white text-primary hover:bg-slate-100 w-full">
                 Send Alerts
               </Button>
@@ -63,27 +73,35 @@ export default function EmergencyCall() {
 
           {/* Current Status */}
           <div className="bg-white rounded-xl p-6 lg:p-8 shadow-sm border border-slate-200 mb-8">
-            <h2 className="text-2xl font-semibold text-secondary mb-6 text-center">Current Status</h2>
+            <h2 className="text-2xl font-semibold text-secondary mb-6 text-center">
+              Current Status
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
                 <div className="w-16 h-16 bg-safe/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <MapPin className="h-8 w-8 text-safe" />
                 </div>
-                <h3 className="font-semibold text-secondary mb-2">Location Services</h3>
+                <h3 className="font-semibold text-secondary mb-2">
+                  Location Services
+                </h3>
                 <p className="text-safe text-sm">Active & Accurate</p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-safe/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Shield className="h-8 w-8 text-safe" />
                 </div>
-                <h3 className="font-semibold text-secondary mb-2">Emergency Services</h3>
+                <h3 className="font-semibold text-secondary mb-2">
+                  Emergency Services
+                </h3>
                 <p className="text-safe text-sm">Available 24/7</p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-safe/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Users className="h-8 w-8 text-safe" />
                 </div>
-                <h3 className="font-semibold text-secondary mb-2">Emergency Contacts</h3>
+                <h3 className="font-semibold text-secondary mb-2">
+                  Emergency Contacts
+                </h3>
                 <p className="text-safe text-sm">4 Contacts Ready</p>
               </div>
             </div>
@@ -91,7 +109,9 @@ export default function EmergencyCall() {
 
           {/* Instructions */}
           <div className="bg-gradient-to-r from-slate-50 to-blue-50 rounded-xl p-6 lg:p-8">
-            <h2 className="text-2xl font-semibold text-secondary mb-6">Emergency Instructions</h2>
+            <h2 className="text-2xl font-semibold text-secondary mb-6">
+              Emergency Instructions
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
                 <h3 className="font-semibold text-secondary mb-4 flex items-center">
@@ -100,24 +120,32 @@ export default function EmergencyCall() {
                 </h3>
                 <ol className="space-y-3 text-slate-600">
                   <li className="flex items-start">
-                    <span className="w-6 h-6 bg-emergency text-white rounded-full text-xs flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 font-bold">1</span>
+                    <span className="w-6 h-6 bg-emergency text-white rounded-full text-xs flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 font-bold">
+                      1
+                    </span>
                     Stay calm and assess the situation
                   </li>
                   <li className="flex items-start">
-                    <span className="w-6 h-6 bg-emergency text-white rounded-full text-xs flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 font-bold">2</span>
+                    <span className="w-6 h-6 bg-emergency text-white rounded-full text-xs flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 font-bold">
+                      2
+                    </span>
                     Use the emergency call button if immediate help is needed
                   </li>
                   <li className="flex items-start">
-                    <span className="w-6 h-6 bg-emergency text-white rounded-full text-xs flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 font-bold">3</span>
+                    <span className="w-6 h-6 bg-emergency text-white rounded-full text-xs flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 font-bold">
+                      3
+                    </span>
                     Your location will be shared automatically
                   </li>
                   <li className="flex items-start">
-                    <span className="w-6 h-6 bg-emergency text-white rounded-full text-xs flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 font-bold">4</span>
+                    <span className="w-6 h-6 bg-emergency text-white rounded-full text-xs flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 font-bold">
+                      4
+                    </span>
                     Emergency contacts will be notified automatically
                   </li>
                 </ol>
               </div>
-              
+
               <div>
                 <h3 className="font-semibold text-secondary mb-4 flex items-center">
                   <Heart className="h-5 w-5 text-safe mr-2" />
@@ -147,13 +175,21 @@ export default function EmergencyCall() {
 
           {/* Quick Actions */}
           <div className="mt-12 text-center">
-            <h2 className="text-2xl font-semibold text-secondary mb-6">Quick Actions</h2>
+            <h2 className="text-2xl font-semibold text-secondary mb-6">
+              Quick Actions
+            </h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="outline" className="border-primary text-primary hover:bg-primary/10">
+              <Button
+                variant="outline"
+                className="border-primary text-primary hover:bg-primary/10"
+              >
                 <Clock className="h-4 w-4 mr-2" />
                 View Emergency History
               </Button>
-              <Button variant="outline" className="border-primary text-primary hover:bg-primary/10">
+              <Button
+                variant="outline"
+                className="border-primary text-primary hover:bg-primary/10"
+              >
                 <Users className="h-4 w-4 mr-2" />
                 Manage Emergency Contacts
               </Button>

@@ -1,17 +1,17 @@
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { 
-  Clock, 
-  Phone, 
-  MapPin, 
-  Download, 
-  Search, 
+import {
+  Clock,
+  Phone,
+  MapPin,
+  Download,
+  Search,
   Filter,
   AlertTriangle,
   CheckCircle,
   Timer,
   FileText,
-  Calendar
+  Calendar,
 } from "lucide-react";
 
 export default function EmergencyHistory() {
@@ -26,7 +26,8 @@ export default function EmergencyHistory() {
       status: "Resolved",
       responseTime: "2:45",
       contacts: ["John Doe", "Jane Smith"],
-      notes: "Successful response from paramedics. Patient transported to General Hospital."
+      notes:
+        "Successful response from paramedics. Patient transported to General Hospital.",
     },
     {
       id: 2,
@@ -37,7 +38,7 @@ export default function EmergencyHistory() {
       status: "Resolved",
       responseTime: "1:20",
       contacts: ["Emergency Services", "Mom"],
-      notes: "False alarm - pocket dial. Confirmed safety with responders."
+      notes: "False alarm - pocket dial. Confirmed safety with responders.",
     },
     {
       id: 3,
@@ -48,7 +49,8 @@ export default function EmergencyHistory() {
       status: "Resolved",
       responseTime: "0:45",
       contacts: ["Dad", "Sister"],
-      notes: "Triggered panic button during late night walk. Safely reached destination."
+      notes:
+        "Triggered panic button during late night walk. Safely reached destination.",
     },
     {
       id: 4,
@@ -59,15 +61,15 @@ export default function EmergencyHistory() {
       status: "Resolved",
       responseTime: "3:10",
       contacts: ["Emergency Services", "John Doe"],
-      notes: "Minor injury during jogging. First aid provided on scene."
-    }
+      notes: "Minor injury during jogging. First aid provided on scene.",
+    },
   ];
 
   const stats = [
     { label: "Total Emergencies", value: "4", icon: AlertTriangle },
     { label: "Avg Response Time", value: "2:00", icon: Timer },
     { label: "Successful Resolutions", value: "100%", icon: CheckCircle },
-    { label: "Contacts Notified", value: "8", icon: Phone }
+    { label: "Contacts Notified", value: "8", icon: Phone },
   ];
 
   const getStatusColor = (status: string) => {
@@ -112,7 +114,8 @@ export default function EmergencyHistory() {
                   Emergency History
                 </h1>
                 <p className="text-xl text-slate-600 max-w-2xl">
-                  View a comprehensive log of your past emergency events, response times, and incident details.
+                  View a comprehensive log of your past emergency events,
+                  response times, and incident details.
                 </p>
               </div>
               <div className="mt-6 lg:mt-0">
@@ -129,11 +132,18 @@ export default function EmergencyHistory() {
             {stats.map((stat, index) => {
               const Icon = stat.icon;
               return (
-                <div key={index} className="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <div
+                  key={index}
+                  className="bg-white rounded-xl p-6 shadow-sm border border-slate-200"
+                >
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-2xl lg:text-3xl font-bold text-secondary">{stat.value}</p>
-                      <p className="text-sm text-slate-600 mt-1">{stat.label}</p>
+                      <p className="text-2xl lg:text-3xl font-bold text-secondary">
+                        {stat.value}
+                      </p>
+                      <p className="text-sm text-slate-600 mt-1">
+                        {stat.label}
+                      </p>
                     </div>
                     <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
                       <Icon className="h-5 w-5 text-primary" />
@@ -171,7 +181,7 @@ export default function EmergencyHistory() {
           {/* Emergency Events List */}
           <div className="space-y-6">
             {emergencyEvents.map((event) => (
-              <div 
+              <div
                 key={event.id}
                 className="bg-white rounded-xl p-6 lg:p-8 shadow-sm border border-slate-200 hover:shadow-md transition-shadow"
               >
@@ -184,16 +194,22 @@ export default function EmergencyHistory() {
                       </div>
                       <div className="flex-1">
                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
-                          <h3 className="text-xl font-semibold text-secondary">{event.type}</h3>
-                          <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(event.status)}`}>
+                          <h3 className="text-xl font-semibold text-secondary">
+                            {event.type}
+                          </h3>
+                          <span
+                            className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(event.status)}`}
+                          >
                             {event.status}
                           </span>
                         </div>
-                        
+
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
                           <div className="flex items-center text-slate-600">
                             <Calendar className="h-4 w-4 mr-2" />
-                            <span className="text-sm">{event.date} at {event.time}</span>
+                            <span className="text-sm">
+                              {event.date} at {event.time}
+                            </span>
                           </div>
                           <div className="flex items-center text-slate-600">
                             <MapPin className="h-4 w-4 mr-2" />
@@ -201,15 +217,19 @@ export default function EmergencyHistory() {
                           </div>
                           <div className="flex items-center text-slate-600">
                             <Timer className="h-4 w-4 mr-2" />
-                            <span className="text-sm">Response: {event.responseTime}</span>
+                            <span className="text-sm">
+                              Response: {event.responseTime}
+                            </span>
                           </div>
                         </div>
 
                         <div className="mb-4">
-                          <h4 className="font-medium text-secondary mb-2">Contacts Notified:</h4>
+                          <h4 className="font-medium text-secondary mb-2">
+                            Contacts Notified:
+                          </h4>
                           <div className="flex flex-wrap gap-2">
                             {event.contacts.map((contact, index) => (
-                              <span 
+                              <span
                                 key={index}
                                 className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm"
                               >
@@ -225,7 +245,9 @@ export default function EmergencyHistory() {
                               <FileText className="h-4 w-4 mr-2" />
                               Incident Notes:
                             </h4>
-                            <p className="text-slate-600 text-sm leading-relaxed">{event.notes}</p>
+                            <p className="text-slate-600 text-sm leading-relaxed">
+                              {event.notes}
+                            </p>
                           </div>
                         )}
                       </div>
@@ -255,7 +277,8 @@ export default function EmergencyHistory() {
                 Export Your Emergency History
               </h2>
               <p className="text-slate-600 mb-6 max-w-2xl mx-auto">
-                Download your complete emergency history for personal records or to share with authorities as needed.
+                Download your complete emergency history for personal records or
+                to share with authorities as needed.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button className="bg-primary hover:bg-primary/90">
@@ -276,9 +299,12 @@ export default function EmergencyHistory() {
               <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Clock className="h-10 w-10 text-slate-400" />
               </div>
-              <h2 className="text-2xl font-semibold text-secondary mb-4">No Emergency History</h2>
+              <h2 className="text-2xl font-semibold text-secondary mb-4">
+                No Emergency History
+              </h2>
               <p className="text-slate-600 mb-6 max-w-md mx-auto">
-                You haven't had any emergency events yet. When you do, they'll appear here with detailed logs and reports.
+                You haven't had any emergency events yet. When you do, they'll
+                appear here with detailed logs and reports.
               </p>
               <Button className="bg-primary hover:bg-primary/90">
                 Learn About Emergency Features
