@@ -86,15 +86,9 @@ export default function Index() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button
-                size="lg"
-                className="bg-emergency hover:bg-emergency/90 text-white"
-              >
-                <Phone className="h-5 w-5 mr-2" />
-                Emergency Call Now
-              </Button>
+              <EmergencyButton variant="hero" showAlert />
               <Link to="/contacts">
-                <Button variant="outline" size="lg">
+                <Button variant="outline" size="xl" className="min-h-[64px]">
                   <Users className="h-5 w-5 mr-2" />
                   Manage Contacts
                 </Button>
