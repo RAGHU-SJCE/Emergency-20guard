@@ -74,15 +74,7 @@ export function Layout({ children }: LayoutProps) {
             {/* Mobile Navigation Button & Emergency Button */}
             <div className="flex items-center space-x-2">
               {/* Emergency Button - Always Visible */}
-              <Link to="/emergency">
-                <Button 
-                  className="bg-emergency hover:bg-emergency/90 text-white min-h-[44px] px-3 sm:px-4"
-                  size="sm"
-                >
-                  <Phone className="h-4 w-4 sm:mr-2" />
-                  <span className="hidden sm:block">Emergency</span>
-                </Button>
-              </Link>
+              <EmergencyButton variant="inline" className="px-3 sm:px-4" />
 
               {/* Mobile Menu Button */}
               <Button
