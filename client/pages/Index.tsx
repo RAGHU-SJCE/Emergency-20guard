@@ -67,22 +67,32 @@ export default function Index() {
       <section className="relative py-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
+            {/* Legal Disclaimer Banner */}
+            <div className="mb-8 bg-red-50 border border-red-200 rounded-xl p-4 max-w-4xl mx-auto">
+              <div className="flex items-center justify-center text-center">
+                <AlertTriangle className="h-5 w-5 text-red-600 mr-2 flex-shrink-0" />
+                <div className="text-sm text-red-700">
+                  <strong>REAL EMERGENCY SYSTEM:</strong> This app makes actual emergency calls.
+                  <span className="hidden sm:inline"> For life-threatening emergencies, call 911 directly.</span>
+                </div>
+              </div>
+            </div>
+
             <div className="mb-8">
-              <div className="inline-flex items-center px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-6">
+              <div className="inline-flex items-center px-4 py-2 bg-emergency/10 text-emergency rounded-full text-sm font-medium mb-6">
                 <Shield className="h-4 w-4 mr-2" />
-                Trusted Emergency Protection
+                Live Emergency Protection System
               </div>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-secondary mb-6">
-              Your Safety is Our
-              <span className="text-primary block">Priority</span>
+              Real Emergency Response
+              <span className="text-primary block">When Seconds Count</span>
             </h1>
 
             <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-10">
-              EmergencyGuard provides instant access to emergency services,
-              automatic contact notifications, and peace of mind when you need
-              it most.
+              EmergencyGuard connects you to real emergency services with GPS location sharing,
+              automatic contact alerts, and comprehensive emergency logging.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
