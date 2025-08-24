@@ -25,5 +25,11 @@ export function createServer() {
 
   app.get("/api/demo", handleDemo);
 
+  // Emergency API routes
+  app.post("/api/emergency/call", initiateEmergencyCall);
+  app.post("/api/emergency/alert-contacts", alertEmergencyContacts);
+  app.post("/api/emergency/log-event", logEmergencyEvent);
+  app.get("/api/emergency/history", getEmergencyHistory);
+
   return app;
 }
