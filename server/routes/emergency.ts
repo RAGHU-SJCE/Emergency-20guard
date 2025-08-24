@@ -106,26 +106,38 @@ export const alertEmergencyContacts: RequestHandler = async (req, res) => {
     const failedContacts: string[] = [];
     let contactsNotified = 0;
 
-    // In a real implementation, this would integrate with:
-    // 1. SMS service (Twilio, AWS SNS, etc.)
-    // 2. Email service (SendGrid, AWS SES, etc.)
-    // 3. Push notification service
-    
+    // Real notification implementation
     for (const contact of alertData.contacts) {
       try {
-        // Simulate sending notifications
-        console.log(`Notifying emergency contact: ${contact.name}`, {
-          phone: contact.phone,
-          email: contact.email,
-          message: alertData.message,
-          location: alertData.location
-        });
-        
-        // In real implementation:
-        // if (contact.phone) await sendSMS(contact.phone, alertData.message);
-        // if (contact.email) await sendEmail(contact.email, alertData.message);
-        
-        contactsNotified++;
+        let notificationSent = false;
+
+        // Send SMS if phone number provided
+        if (contact.phone) {
+          const smsResult = await sendEmergencySMS(contact.phone, contact.name, alertData.message, alertData.location);
+          if (smsResult.success) {
+            notificationSent = true;
+            console.log(`SMS sent to ${contact.name} at ${contact.phone}`);
+          } else {
+            console.error(`SMS failed for ${contact.name}:`, smsResult.error);
+          }
+        }
+
+        // Send Email if email provided
+        if (contact.email) {
+          const emailResult = await sendEmergencyEmail(contact.email, contact.name, alertData.message, alertData.location);
+          if (emailResult.success) {
+            notificationSent = true;
+            console.log(`Email sent to ${contact.name} at ${contact.email}`);
+          } else {
+            console.error(`Email failed for ${contact.name}:`, emailResult.error);
+          }
+        }
+
+        if (notificationSent) {
+          contactsNotified++;
+        } else {
+          failedContacts.push(contact.name);
+        }
       } catch (error) {
         console.error(`Failed to notify ${contact.name}:`, error);
         failedContacts.push(contact.name);
