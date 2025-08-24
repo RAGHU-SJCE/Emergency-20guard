@@ -1,5 +1,133 @@
 import { RequestHandler } from "express";
 
+// SMS and Email notification interfaces
+interface NotificationResult {
+  success: boolean;
+  error?: string;
+  messageId?: string;
+}
+
+// Emergency SMS notification
+async function sendEmergencySMS(phone: string, contactName: string, message: string, location?: { latitude: number; longitude: number }): Promise<NotificationResult> {
+  try {
+    // Format emergency SMS message
+    const locationText = location
+      ? `\nLocation: https://maps.google.com/maps?q=${location.latitude},${location.longitude}`
+      : '';
+
+    const smsMessage = `🚨 EMERGENCY ALERT 🚨\n\n${message}${locationText}\n\nThis is an automated emergency notification from EmergencyGuard.`;
+
+    // In a real implementation, this would use Twilio, AWS SNS, or similar service:
+    /*
+    const twilio = require('twilio');
+    const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+
+    const result = await client.messages.create({
+      body: smsMessage,
+      from: process.env.TWILIO_PHONE_NUMBER,
+      to: phone
+    });
+
+    return { success: true, messageId: result.sid };
+    */
+
+    // Demo implementation - log instead of actually sending
+    console.log(`📱 EMERGENCY SMS TO ${contactName} (${phone}):`);
+    console.log(`Message: ${smsMessage}`);
+    console.log(`Length: ${smsMessage.length} characters`);
+
+    // Simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 500 + Math.random() * 1000));
+
+    // Simulate occasional failures
+    if (Math.random() < 0.1) { // 10% failure rate for demo
+      return { success: false, error: 'SMS delivery failed - network error' };
+    }
+
+    const messageId = `sms_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return { success: true, messageId };
+
+  } catch (error) {
+    console.error('SMS sending error:', error);
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown SMS error' };
+  }
+}
+
+// Emergency Email notification
+async function sendEmergencyEmail(email: string, contactName: string, message: string, location?: { latitude: number; longitude: number }): Promise<NotificationResult> {
+  try {
+    // Format emergency email
+    const locationHtml = location
+      ? `<p><strong>Location:</strong> <a href="https://maps.google.com/maps?q=${location.latitude},${location.longitude}">View on Google Maps</a></p>`
+      : '';
+
+    const emailHtml = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <div style="background: #ef4444; color: white; padding: 20px; text-align: center;">
+          <h1 style="margin: 0; font-size: 24px;">🚨 EMERGENCY ALERT 🚨</h1>
+        </div>
+        <div style="padding: 20px; background: #f9fafb; border: 1px solid #e5e7eb;">
+          <h2 style="color: #1f2937; margin-top: 0;">Emergency Notification</h2>
+          <p style="font-size: 16px; line-height: 1.5; color: #374151;">${message}</p>
+          ${locationHtml}
+          <div style="margin: 20px 0; padding: 15px; background: #fef3c7; border-left: 4px solid #f59e0b;">
+            <p style="margin: 0; color: #92400e;"><strong>Important:</strong> This is an automated emergency notification. Please respond immediately.</p>
+          </div>
+          <p style="color: #6b7280; font-size: 14px;">This message was sent automatically by EmergencyGuard emergency system.</p>
+        </div>
+      </div>
+    `;
+
+    const emailText = `
+🚨 EMERGENCY ALERT 🚨
+
+${message}
+
+${location ? `Location: https://maps.google.com/maps?q=${location.latitude},${location.longitude}` : ''}
+
+This is an automated emergency notification from EmergencyGuard.
+Please respond immediately.
+    `;
+
+    // In a real implementation, this would use SendGrid, AWS SES, or similar service:
+    /*
+    const sgMail = require('@sendgrid/mail');
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+    const msg = {
+      to: email,
+      from: process.env.FROM_EMAIL,
+      subject: '🚨 EMERGENCY ALERT - Immediate Response Required',
+      text: emailText,
+      html: emailHtml,
+    };
+
+    const result = await sgMail.send(msg);
+    return { success: true, messageId: result[0].headers['x-message-id'] };
+    */
+
+    // Demo implementation - log instead of actually sending
+    console.log(`📧 EMERGENCY EMAIL TO ${contactName} (${email}):`);
+    console.log(`Subject: 🚨 EMERGENCY ALERT - Immediate Response Required`);
+    console.log(`Text content: ${emailText}`);
+
+    // Simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000));
+
+    // Simulate occasional failures
+    if (Math.random() < 0.05) { // 5% failure rate for demo
+      return { success: false, error: 'Email delivery failed - server error' };
+    }
+
+    const messageId = `email_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return { success: true, messageId };
+
+  } catch (error) {
+    console.error('Email sending error:', error);
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown email error' };
+  }
+}
+
 export interface EmergencyCallRequest {
   location?: {
     latitude: number;
