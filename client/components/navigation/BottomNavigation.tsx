@@ -17,13 +17,30 @@ export function BottomNavigation({ className = "" }: BottomNavigationProps) {
 
   const navigation: NavigationItem[] = [
     { name: "Home", href: "/", icon: Shield, shortName: "Home" },
-    { name: "Emergency Contacts", href: "/contacts", icon: Users, shortName: "Contacts" },
-    { name: "Emergency History", href: "/history", icon: History, shortName: "History" },
-    { name: "Emergency Call", href: "/emergency", icon: Phone, shortName: "Call" },
+    {
+      name: "Emergency Contacts",
+      href: "/contacts",
+      icon: Users,
+      shortName: "Contacts",
+    },
+    {
+      name: "Emergency History",
+      href: "/history",
+      icon: History,
+      shortName: "History",
+    },
+    {
+      name: "Emergency Call",
+      href: "/emergency",
+      icon: Phone,
+      shortName: "Call",
+    },
   ];
 
   return (
-    <nav className={`sm:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-slate-200 z-40 ${className}`}>
+    <nav
+      className={`sm:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-slate-200 z-40 ${className}`}
+    >
       <div className="flex justify-around py-2">
         {navigation.map((item) => {
           const Icon = item.icon;

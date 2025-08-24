@@ -6,7 +6,7 @@ import {
   initiateEmergencyCall,
   alertEmergencyContacts,
   logEmergencyEvent,
-  getEmergencyHistory
+  getEmergencyHistory,
 } from "./routes/emergency";
 
 export function createServer() {

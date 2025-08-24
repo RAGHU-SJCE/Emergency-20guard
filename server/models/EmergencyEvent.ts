@@ -1,12 +1,12 @@
-import { Database as SqliteDB } from 'sqlite';
+import { Database as SqliteDB } from "sqlite";
 
 export interface EmergencyEventData {
   id?: number;
   uuid: string;
   userId?: number;
-  eventType: 'medical' | 'fire' | 'police' | 'general';
-  status: 'active' | 'resolved' | 'cancelled';
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  eventType: "medical" | "fire" | "police" | "general";
+  status: "active" | "resolved" | "cancelled";
+  severity: "low" | "medium" | "high" | "critical";
   locationLatitude?: number;
   locationLongitude?: number;
   locationAccuracy?: number;
@@ -56,8 +56,8 @@ export class EmergencyEventModel {
       eventData.uuid,
       eventData.userId || null,
       eventData.eventType,
-      eventData.status || 'active',
-      eventData.severity || 'high',
+      eventData.status || "active",
+      eventData.severity || "high",
       eventData.locationLatitude || null,
       eventData.locationLongitude || null,
       eventData.locationAccuracy || null,
@@ -67,16 +67,16 @@ export class EmergencyEventModel {
       eventData.callDuration || null,
       eventData.responseTime || null,
       eventData.notes || null,
-      eventData.systemInfo ? JSON.stringify(eventData.systemInfo) : null
+      eventData.systemInfo ? JSON.stringify(eventData.systemInfo) : null,
     ];
 
     const result = await this.db.run(query, params);
-    
+
     if (result.lastID) {
       return await this.findById(result.lastID);
     }
-    
-    throw new Error('Failed to create emergency event');
+
+    throw new Error("Failed to create emergency event");
   }
 
   /**
@@ -86,7 +86,7 @@ export class EmergencyEventModel {
     const query = `
       SELECT * FROM emergency_events WHERE id = ?
     `;
-    
+
     const result = await this.db.get(query, [id]);
     return result ? this.mapRowToEvent(result) : null;
   }
@@ -98,7 +98,7 @@ export class EmergencyEventModel {
     const query = `
       SELECT * FROM emergency_events WHERE uuid = ?
     `;
-    
+
     const result = await this.db.get(query, [uuid]);
     return result ? this.mapRowToEvent(result) : null;
   }
@@ -106,7 +106,9 @@ export class EmergencyEventModel {
   /**
    * Find emergency events with filters
    */
-  async findAll(filter: EmergencyEventFilter = {}): Promise<EmergencyEventData[]> {
+  async findAll(
+    filter: EmergencyEventFilter = {},
+  ): Promise<EmergencyEventData[]> {
     let query = `
       SELECT * FROM emergency_events WHERE 1=1
     `;
@@ -156,16 +158,24 @@ export class EmergencyEventModel {
   /**
    * Update emergency event
    */
-  async update(id: number, updates: Partial<EmergencyEventData>): Promise<EmergencyEventData | null> {
+  async update(
+    id: number,
+    updates: Partial<EmergencyEventData>,
+  ): Promise<EmergencyEventData | null> {
     const setClause: string[] = [];
     const params: any[] = [];
 
     Object.entries(updates).forEach(([key, value]) => {
-      if (value !== undefined && key !== 'id' && key !== 'uuid' && key !== 'createdAt') {
+      if (
+        value !== undefined &&
+        key !== "id" &&
+        key !== "uuid" &&
+        key !== "createdAt"
+      ) {
         const dbKey = this.camelToSnake(key);
         setClause.push(`${dbKey} = ?`);
-        
-        if (key === 'systemInfo' && value) {
+
+        if (key === "systemInfo" && value) {
           params.push(JSON.stringify(value));
         } else if (value instanceof Date) {
           params.push(value.toISOString());
@@ -181,13 +191,13 @@ export class EmergencyEventModel {
 
     const query = `
       UPDATE emergency_events 
-      SET ${setClause.join(', ')}, updated_at = CURRENT_TIMESTAMP
+      SET ${setClause.join(", ")}, updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
     `;
-    
+
     params.push(id);
     await this.db.run(query, params);
-    
+
     return await this.findById(id);
   }
 
@@ -206,7 +216,7 @@ export class EmergencyEventModel {
   async getStatistics(userId?: number): Promise<any> {
     let baseQuery = `FROM emergency_events`;
     const params: any[] = [];
-    
+
     if (userId) {
       baseQuery += ` WHERE user_id = ?`;
       params.push(userId);
@@ -217,7 +227,7 @@ export class EmergencyEventModel {
       byType: `SELECT event_type, COUNT(*) as count ${baseQuery} GROUP BY event_type`,
       byStatus: `SELECT status, COUNT(*) as count ${baseQuery} GROUP BY status`,
       avgResponseTime: `SELECT AVG(response_time) as avg_time ${baseQuery} WHERE response_time IS NOT NULL`,
-      recentEvents: `SELECT COUNT(*) as count ${baseQuery} AND created_at >= datetime('now', '-30 days')`
+      recentEvents: `SELECT COUNT(*) as count ${baseQuery} AND created_at >= datetime('now', '-30 days')`,
     };
 
     const results = await Promise.all([
@@ -225,7 +235,7 @@ export class EmergencyEventModel {
       this.db.all(queries.byType, params),
       this.db.all(queries.byStatus, params),
       this.db.get(queries.avgResponseTime, params),
-      this.db.get(queries.recentEvents, params)
+      this.db.get(queries.recentEvents, params),
     ]);
 
     return {
@@ -233,7 +243,7 @@ export class EmergencyEventModel {
       byType: results[1] || [],
       byStatus: results[2] || [],
       averageResponseTime: results[3]?.avg_time || 0,
-      recentEvents: results[4]?.count || 0
+      recentEvents: results[4]?.count || 0,
     };
   }
 
@@ -252,7 +262,9 @@ export class EmergencyEventModel {
       locationLongitude: row.location_longitude,
       locationAccuracy: row.location_accuracy,
       locationAddress: row.location_address,
-      locationTimestamp: row.location_timestamp ? new Date(row.location_timestamp) : undefined,
+      locationTimestamp: row.location_timestamp
+        ? new Date(row.location_timestamp)
+        : undefined,
       emergencyNumber: row.emergency_number,
       callDuration: row.call_duration,
       responseTime: row.response_time,
@@ -260,7 +272,7 @@ export class EmergencyEventModel {
       systemInfo: row.system_info ? JSON.parse(row.system_info) : undefined,
       createdAt: new Date(row.created_at),
       updatedAt: new Date(row.updated_at),
-      resolvedAt: row.resolved_at ? new Date(row.resolved_at) : undefined
+      resolvedAt: row.resolved_at ? new Date(row.resolved_at) : undefined,
     };
   }
 
@@ -268,7 +280,7 @@ export class EmergencyEventModel {
    * Convert camelCase to snake_case
    */
   private camelToSnake(str: string): string {
-    return str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+    return str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
   }
 }
 

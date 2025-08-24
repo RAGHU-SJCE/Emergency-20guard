@@ -10,21 +10,21 @@ interface LayoutProps {
   showFloatingButton?: boolean;
 }
 
-export function Layout({ 
-  children, 
+export function Layout({
+  children,
   className = "",
   showBottomNav = true,
-  showFloatingButton = true
+  showFloatingButton = true,
 }: LayoutProps) {
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 ${className}`}>
+    <div
+      className={`min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 ${className}`}
+    >
       {/* Header Navigation */}
       <Header />
 
       {/* Main Content */}
-      <main className="flex-1">
-        {children}
-      </main>
+      <main className="flex-1">{children}</main>
 
       {/* Floating Emergency Button for Mobile */}
       {showFloatingButton && (

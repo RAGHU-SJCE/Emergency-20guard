@@ -22,7 +22,9 @@ export function Footer({ className = "" }: FooterProps) {
   ];
 
   return (
-    <footer className={`bg-secondary text-white mt-16 pb-16 sm:pb-0 ${className}`}>
+    <footer
+      className={`bg-secondary text-white mt-16 pb-16 sm:pb-0 ${className}`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
@@ -34,12 +36,16 @@ export function Footer({ className = "" }: FooterProps) {
               <span className="text-xl font-bold">EmergencyGuard</span>
             </div>
             <p className="text-slate-300 mb-4 max-w-md">
-              Your trusted companion for emergency preparedness and rapid response. 
-              Real emergency calling with GPS location sharing and emergency contact alerts.
+              Your trusted companion for emergency preparedness and rapid
+              response. Real emergency calling with GPS location sharing and
+              emergency contact alerts.
             </p>
             <div className="text-sm text-slate-400">
               <p className="mb-2">
-                <strong className="text-red-300">⚠️ Real Emergency System:</strong> This app makes actual emergency calls.
+                <strong className="text-red-300">
+                  ⚠️ Real Emergency System:
+                </strong>{" "}
+                This app makes actual emergency calls.
               </p>
               <p>For life-threatening emergencies, call 911 directly.</p>
             </div>
@@ -66,13 +72,13 @@ export function Footer({ className = "" }: FooterProps) {
           <div>
             <h3 className="font-semibold mb-4">Support</h3>
             <div className="space-y-2">
-              <a 
+              <a
                 href="mailto:support@emergencyguard.com"
                 className="text-slate-300 hover:text-white transition-colors block min-h-[44px] flex items-center"
               >
                 support@emergencyguard.com
               </a>
-              <a 
+              <a
                 href="mailto:privacy@emergencyguard.com"
                 className="text-slate-300 hover:text-white transition-colors block min-h-[44px] flex items-center"
               >

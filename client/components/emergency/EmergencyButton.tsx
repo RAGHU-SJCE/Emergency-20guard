@@ -13,20 +13,20 @@ interface EmergencyButtonProps {
   onClick?: () => void;
 }
 
-export function EmergencyButton({ 
-  variant = "inline", 
-  className = "", 
+export function EmergencyButton({
+  variant = "inline",
+  className = "",
   showAlert = false,
   size = "md",
   disabled = false,
-  onClick
+  onClick,
 }: EmergencyButtonProps) {
   const deviceFeatures = useDeviceFeatures();
   const [isPressed, setIsPressed] = useState(false);
 
   const handleEmergencyPress = () => {
     setIsPressed(true);
-    
+
     // Haptic feedback
     if (deviceFeatures.vibration.supported) {
       deviceFeatures.vibration.vibrate([200, 100, 200]);
@@ -42,14 +42,14 @@ export function EmergencyButton({
   };
 
   const baseClasses = "transition-all duration-200 font-bold active:scale-95";
-  
+
   const sizeClasses = {
     sm: "text-sm px-3 py-2 min-h-[40px]",
     md: "text-base px-4 py-2 min-h-[44px]",
     lg: "text-lg px-6 py-3 min-h-[48px]",
-    xl: "text-xl px-8 py-4 min-h-[56px]"
+    xl: "text-xl px-8 py-4 min-h-[56px]",
   };
-  
+
   const variantClasses = {
     floating: `
       fixed bottom-6 right-6 z-50 rounded-full w-16 h-16 shadow-2xl
@@ -57,7 +57,7 @@ export function EmergencyButton({
       hover:from-emergency/90 hover:to-red-600/90
       border-4 border-white/20
       backdrop-blur-sm
-      ${isPressed ? 'scale-110 shadow-3xl' : 'hover:scale-110'}
+      ${isPressed ? "scale-110 shadow-3xl" : "hover:scale-110"}
       emergency-pulse
     `,
     inline: `
@@ -65,7 +65,7 @@ export function EmergencyButton({
       hover:from-emergency/90 hover:to-red-600/90
       text-white border-2 border-emergency/20
       shadow-lg hover:shadow-xl
-      ${isPressed ? 'scale-105' : 'hover:scale-105'}
+      ${isPressed ? "scale-105" : "hover:scale-105"}
       emergency-pulse
       ${sizeClasses[size]}
     `,
@@ -75,10 +75,10 @@ export function EmergencyButton({
       text-white border-2 border-emergency/20
       shadow-xl hover:shadow-2xl
       font-bold py-4 px-8 rounded-xl
-      ${isPressed ? 'scale-105' : 'hover:scale-105'}
+      ${isPressed ? "scale-105" : "hover:scale-105"}
       emergency-pulse
       min-h-[64px]
-    `
+    `,
   };
 
   if (variant === "floating") {

@@ -1,9 +1,9 @@
-import { EmergencyContact, EmergencyLocation } from './emergencyService';
+import { EmergencyContact, EmergencyLocation } from "./emergencyService";
 
 export interface NotificationResult {
   success: boolean;
   contactName: string;
-  method: 'sms' | 'email';
+  method: "sms" | "email";
   messageId?: string;
   error?: string;
 }
@@ -17,11 +17,12 @@ export interface EmergencyAlertOptions {
 }
 
 export class NotificationService {
-  
   /**
    * Send emergency alerts to all contacts
    */
-  async sendEmergencyAlerts(options: EmergencyAlertOptions): Promise<NotificationResult[]> {
+  async sendEmergencyAlerts(
+    options: EmergencyAlertOptions,
+  ): Promise<NotificationResult[]> {
     const results: NotificationResult[] = [];
 
     for (const contact of options.contacts) {
@@ -32,12 +33,12 @@ export class NotificationService {
           contact.name,
           options.message,
           options.location,
-          options.emergencyType
+          options.emergencyType,
         );
         results.push({
           ...smsResult,
           contactName: contact.name,
-          method: 'sms'
+          method: "sms",
         });
       }
 
@@ -48,12 +49,12 @@ export class NotificationService {
           contact.name,
           options.message,
           options.location,
-          options.emergencyType
+          options.emergencyType,
         );
         results.push({
           ...emailResult,
           contactName: contact.name,
-          method: 'email'
+          method: "email",
         });
       }
     }
@@ -69,16 +70,16 @@ export class NotificationService {
     contactName: string,
     message: string,
     location?: EmergencyLocation,
-    emergencyType?: string
+    emergencyType?: string,
   ): Promise<{ success: boolean; messageId?: string; error?: string }> {
     try {
       // Format emergency SMS message
-      const locationText = location 
+      const locationText = location
         ? `\nLocation: https://maps.google.com/maps?q=${location.latitude},${location.longitude}`
-        : '';
-      
+        : "";
+
       const smsMessage = `🚨 EMERGENCY ALERT 🚨\n\n${message}${locationText}\n\nThis is an automated emergency notification from EmergencyGuard.`;
-      
+
       // In a real implementation, this would use Twilio:
       /*
       const twilio = require('twilio');
@@ -92,28 +93,27 @@ export class NotificationService {
       
       return { success: true, messageId: result.sid };
       */
-      
+
       // Demo implementation
       console.log(`📱 EMERGENCY SMS TO ${contactName} (${phone}):`);
       console.log(`Message: ${smsMessage}`);
       console.log(`Length: ${smsMessage.length} characters`);
-      
+
       // Simulate network delay
       await this.simulateNetworkDelay(500, 1500);
-      
+
       // Simulate occasional failures (10% failure rate)
       if (Math.random() < 0.1) {
-        return { success: false, error: 'SMS delivery failed - network error' };
+        return { success: false, error: "SMS delivery failed - network error" };
       }
-      
+
       const messageId = `sms_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
       return { success: true, messageId };
-      
     } catch (error) {
-      console.error('SMS sending error:', error);
-      return { 
-        success: false, 
-        error: error instanceof Error ? error.message : 'Unknown SMS error' 
+      console.error("SMS sending error:", error);
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown SMS error",
       };
     }
   }
@@ -126,16 +126,18 @@ export class NotificationService {
     contactName: string,
     message: string,
     location?: EmergencyLocation,
-    emergencyType?: string
+    emergencyType?: string,
   ): Promise<{ success: boolean; messageId?: string; error?: string }> {
     try {
       // Format emergency email
-      const locationHtml = location 
+      const locationHtml = location
         ? `<p><strong>Location:</strong> <a href="https://maps.google.com/maps?q=${location.latitude},${location.longitude}" target="_blank" rel="noopener noreferrer">View on Google Maps</a></p>`
-        : '';
-      
-      const emergencyTypeText = emergencyType ? ` - ${emergencyType.toUpperCase()}` : '';
-      
+        : "";
+
+      const emergencyTypeText = emergencyType
+        ? ` - ${emergencyType.toUpperCase()}`
+        : "";
+
       const emailHtml = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff;">
           <div style="background: #ef4444; color: white; padding: 20px; text-align: center;">
@@ -164,13 +166,13 @@ export class NotificationService {
           </div>
         </div>
       `;
-      
+
       const emailText = `
 🚨 EMERGENCY ALERT${emergencyTypeText} 🚨
 
 ${message}
 
-${location ? `Location: https://maps.google.com/maps?q=${location.latitude},${location.longitude}` : ''}
+${location ? `Location: https://maps.google.com/maps?q=${location.latitude},${location.longitude}` : ""}
 
 ⚠️ IMPORTANT: This is an automated emergency notification. Please respond immediately if possible.
 
@@ -183,7 +185,7 @@ This message was sent automatically by the EmergencyGuard emergency response sys
 Time: ${new Date().toLocaleString()}
 If this is a false alarm, please contact the sender directly.
       `;
-      
+
       // In a real implementation, this would use SendGrid, AWS SES, or similar:
       /*
       const sgMail = require('@sendgrid/mail');
@@ -209,29 +211,33 @@ If this is a false alarm, please contact the sender directly.
       const result = await sgMail.send(msg);
       return { success: true, messageId: result[0].headers['x-message-id'] };
       */
-      
+
       // Demo implementation
       console.log(`📧 EMERGENCY EMAIL TO ${contactName} (${email}):`);
-      console.log(`Subject: 🚨 EMERGENCY ALERT${emergencyTypeText} - Immediate Response Required`);
+      console.log(
+        `Subject: 🚨 EMERGENCY ALERT${emergencyTypeText} - Immediate Response Required`,
+      );
       console.log(`Text length: ${emailText.length} characters`);
       console.log(`HTML length: ${emailHtml.length} characters`);
-      
+
       // Simulate network delay
       await this.simulateNetworkDelay(1000, 3000);
-      
+
       // Simulate occasional failures (5% failure rate)
       if (Math.random() < 0.05) {
-        return { success: false, error: 'Email delivery failed - server error' };
+        return {
+          success: false,
+          error: "Email delivery failed - server error",
+        };
       }
-      
+
       const messageId = `email_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
       return { success: true, messageId };
-      
     } catch (error) {
-      console.error('Email sending error:', error);
-      return { 
-        success: false, 
-        error: error instanceof Error ? error.message : 'Unknown email error' 
+      console.error("Email sending error:", error);
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown email error",
       };
     }
   }
@@ -243,17 +249,17 @@ If this is a false alarm, please contact the sender directly.
     deviceToken: string,
     title: string,
     body: string,
-    data?: any
+    data?: any,
   ): Promise<{ success: boolean; messageId?: string; error?: string }> {
     // Implementation would use FCM, APNS, or similar service
     console.log(`📲 PUSH NOTIFICATION: ${title} - ${body}`);
-    
+
     // Simulate for demo
     await this.simulateNetworkDelay(200, 500);
-    
-    return { 
-      success: true, 
-      messageId: `push_${Date.now()}_${Math.random().toString(36).substr(2, 9)}` 
+
+    return {
+      success: true,
+      messageId: `push_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
     };
   }
 
@@ -264,19 +270,19 @@ If this is a false alarm, please contact the sender directly.
     const errors: string[] = [];
 
     if (!contact.name || contact.name.trim().length === 0) {
-      errors.push('Contact name is required');
+      errors.push("Contact name is required");
     }
 
     if (!contact.phone && !contact.email) {
-      errors.push('At least one contact method (phone or email) is required');
+      errors.push("At least one contact method (phone or email) is required");
     }
 
     if (contact.phone && !this.isValidPhoneNumber(contact.phone)) {
-      errors.push('Invalid phone number format');
+      errors.push("Invalid phone number format");
     }
 
     if (contact.email && !this.isValidEmail(contact.email)) {
-      errors.push('Invalid email format');
+      errors.push("Invalid email format");
     }
 
     return errors;
@@ -301,9 +307,12 @@ If this is a false alarm, please contact the sender directly.
   /**
    * Simulate network delay for demo purposes
    */
-  private async simulateNetworkDelay(minMs: number, maxMs: number): Promise<void> {
+  private async simulateNetworkDelay(
+    minMs: number,
+    maxMs: number,
+  ): Promise<void> {
     const delay = minMs + Math.random() * (maxMs - minMs);
-    return new Promise(resolve => setTimeout(resolve, delay));
+    return new Promise((resolve) => setTimeout(resolve, delay));
   }
 
   /**
@@ -318,7 +327,7 @@ If this is a false alarm, please contact the sender directly.
     return {
       totalSent: 0,
       successRate: 0.95, // 95% success rate
-      avgDeliveryTime: 1.2 // 1.2 seconds average
+      avgDeliveryTime: 1.2, // 1.2 seconds average
     };
   }
 }

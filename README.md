@@ -11,6 +11,7 @@
 ## 🚀 Features
 
 ### Core Emergency Features
+
 - **Real Emergency Calling**: Direct integration with emergency services (911, 112)
 - **GPS Location Sharing**: Automatic location sharing with emergency responders
 - **Emergency Contact Alerts**: SMS and email notifications to trusted contacts
@@ -18,6 +19,7 @@
 - **Emergency Logging**: Comprehensive event logging with timestamps and locations
 
 ### Technical Features
+
 - **Progressive Web App (PWA)**: Installable on mobile devices
 - **Offline Support**: Service worker for offline functionality
 - **Push Notifications**: Browser-based emergency alerts
@@ -25,6 +27,7 @@
 - **Cross-Platform**: Works on iOS, Android, desktop browsers
 
 ### Safety & Legal
+
 - **Comprehensive Disclaimers**: Clear legal protections and usage guidelines
 - **Fallback Systems**: Direct 911 calling if app fails
 - **Permission Management**: Smart handling of location and notification permissions
@@ -58,6 +61,7 @@ EmergencyGuard/
 ## 🛠️ Technology Stack
 
 ### Frontend
+
 - **Framework**: React 18 + TypeScript
 - **Routing**: React Router 6 (SPA mode)
 - **Styling**: TailwindCSS 3 + Radix UI
@@ -66,6 +70,7 @@ EmergencyGuard/
 - **State Management**: React hooks + Context API
 
 ### Backend
+
 - **Runtime**: Node.js + Express
 - **Language**: TypeScript
 - **Database**: SQLite (development) / PostgreSQL (production)
@@ -74,6 +79,7 @@ EmergencyGuard/
 - **API Documentation**: OpenAPI 3.0 + Swagger
 
 ### DevOps & Deployment
+
 - **Package Manager**: pnpm
 - **Testing**: Vitest
 - **Linting**: ESLint + Prettier
@@ -83,36 +89,42 @@ EmergencyGuard/
 ## 📦 Installation
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - pnpm (recommended) or npm
 - Git
 
 ### Quick Start
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/your-org/emergency-guard.git
    cd emergency-guard
    ```
 
 2. **Install dependencies**
+
    ```bash
    pnpm install
    ```
 
 3. **Set up environment variables**
+
    ```bash
    cp .env.example .env
    # Edit .env with your configuration
    ```
 
 4. **Initialize database**
+
    ```bash
    pnpm run db:setup
    pnpm run db:migrate
    ```
 
 5. **Start development server**
+
    ```bash
    pnpm run dev
    ```
@@ -163,6 +175,7 @@ pnpm preview          # Preview production build
 ### Development Workflow
 
 1. **Create a feature branch**
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
@@ -173,6 +186,7 @@ pnpm preview          # Preview production build
    - Update documentation as needed
 
 3. **Test your changes**
+
    ```bash
    pnpm test
    pnpm typecheck
@@ -240,18 +254,21 @@ LOG_LEVEL=info
 ### REST API Endpoints
 
 #### Emergency Operations
+
 - `POST /api/emergency/call` - Initiate emergency call
 - `POST /api/emergency/alert-contacts` - Alert emergency contacts
 - `POST /api/emergency/log-event` - Log emergency event
 - `GET /api/emergency/history` - Get emergency history
 
 #### User Management (Future)
+
 - `POST /api/auth/register` - Register new user
 - `POST /api/auth/login` - User login
 - `GET /api/user/profile` - Get user profile
 - `PUT /api/user/profile` - Update user profile
 
 #### System Status
+
 - `GET /api/health` - System health check
 - `GET /api/status` - System status
 
@@ -294,17 +311,20 @@ pnpm test:watch
 ### Production Deployment
 
 #### Using Netlify (Recommended)
+
 1. Connect your repository to Netlify
 2. Set build command: `pnpm build`
 3. Set publish directory: `dist/spa`
 4. Add environment variables in Netlify dashboard
 
 #### Using Vercel
+
 1. Connect your repository to Vercel
 2. Vercel will auto-detect the build settings
 3. Add environment variables in Vercel dashboard
 
 #### Manual Deployment
+
 ```bash
 # Build for production
 pnpm build
@@ -326,12 +346,14 @@ docker run -p 8080:8080 -e NODE_ENV=production emergency-guard
 ## 🔒 Security Considerations
 
 ### Emergency System Security
+
 - **Rate Limiting**: Prevents abuse of emergency endpoints
 - **Input Validation**: All inputs are validated and sanitized
 - **Secure Communications**: HTTPS required in production
 - **Data Encryption**: Sensitive data encrypted at rest and in transit
 
 ### Development Security
+
 - **Environment Variables**: Secrets stored in environment variables
 - **Authentication**: JWT-based authentication ready for implementation
 - **Authorization**: Role-based access control ready
@@ -342,9 +364,11 @@ docker run -p 8080:8080 -e NODE_ENV=production emergency-guard
 We welcome contributions to EmergencyGuard! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ### Code of Conduct
+
 This project adheres to a [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
 
 ### Development Guidelines
+
 - Follow TypeScript best practices
 - Write tests for new features
 - Update documentation for API changes

@@ -23,7 +23,7 @@ export interface EmergencyCallRequest {
     phone?: string;
     medicalInfo?: string;
   };
-  emergencyType: 'medical' | 'fire' | 'police' | 'general';
+  emergencyType: "medical" | "fire" | "police" | "general";
   timestamp: string;
 }
 

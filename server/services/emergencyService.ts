@@ -1,5 +1,8 @@
-import { EmergencyEventModel, EmergencyEventData } from '../models/EmergencyEvent';
-import { Database as SqliteDB } from 'sqlite';
+import {
+  EmergencyEventModel,
+  EmergencyEventData,
+} from "../models/EmergencyEvent";
+import { Database as SqliteDB } from "sqlite";
 
 export interface EmergencyLocation {
   latitude: number;
@@ -16,7 +19,7 @@ export interface EmergencyContact {
 }
 
 export interface CreateEmergencyEventOptions {
-  emergencyType: 'medical' | 'fire' | 'police' | 'general';
+  emergencyType: "medical" | "fire" | "police" | "general";
   location?: EmergencyLocation;
   userInfo?: {
     name?: string;
@@ -56,11 +59,13 @@ export class EmergencyService {
   /**
    * Create a new emergency event
    */
-  async createEmergencyEvent(options: CreateEmergencyEventOptions): Promise<EmergencyEventData> {
+  async createEmergencyEvent(
+    options: CreateEmergencyEventOptions,
+  ): Promise<EmergencyEventData> {
     const eventData: EmergencyEventData = {
       uuid: this.generateUUID(),
       eventType: options.emergencyType,
-      status: 'active',
+      status: "active",
       severity: this.determineSeverity(options.emergencyType),
       locationLatitude: options.location?.latitude,
       locationLongitude: options.location?.longitude,
@@ -71,23 +76,23 @@ export class EmergencyService {
         userAgent: options.userInfo || {},
         userIp: options.userIp,
         timestamp: options.timestamp,
-        appVersion: process.env.APP_VERSION || '1.0.0'
-      }
+        appVersion: process.env.APP_VERSION || "1.0.0",
+      },
     };
 
     const createdEvent = await this.emergencyEventModel.create(eventData);
-    
+
     // Log audit entry
     await this.logAuditEntry({
-      action: 'emergency_call_created',
-      resourceType: 'emergency_event',
+      action: "emergency_call_created",
+      resourceType: "emergency_event",
       resourceId: createdEvent.uuid,
       details: {
         emergencyType: options.emergencyType,
         hasLocation: !!options.location,
-        userIp: options.userIp
+        userIp: options.userIp,
       },
-      severity: 'critical'
+      severity: "critical",
     });
 
     return createdEvent;
@@ -96,23 +101,25 @@ export class EmergencyService {
   /**
    * Create contact alert record
    */
-  async createContactAlert(options: ContactAlertOptions): Promise<{ id: string; timestamp: Date }> {
+  async createContactAlert(
+    options: ContactAlertOptions,
+  ): Promise<{ id: string; timestamp: Date }> {
     const alertId = this.generateUUID();
     const timestamp = new Date();
 
     // In a production app, this would create a record in a contact_alerts table
     // For now, we'll log it as an audit entry
     await this.logAuditEntry({
-      action: 'emergency_contacts_alerted',
-      resourceType: 'contact_alert',
+      action: "emergency_contacts_alerted",
+      resourceType: "contact_alert",
       resourceId: alertId,
       details: {
         contactCount: options.contacts.length,
         emergencyType: options.emergencyType,
         hasLocation: !!options.location,
-        messageLength: options.message.length
+        messageLength: options.message.length,
       },
-      severity: 'critical'
+      severity: "critical",
     });
 
     return { id: alertId, timestamp };
@@ -128,16 +135,16 @@ export class EmergencyService {
     userIp: string;
   }): Promise<void> {
     await this.logAuditEntry({
-      action: 'emergency_call_initiated',
-      resourceType: 'emergency_call',
+      action: "emergency_call_initiated",
+      resourceType: "emergency_call",
       resourceId: options.eventId,
       details: {
         emergencyNumber: options.emergencyNumber,
         callInitiated: options.callInitiated,
         userIp: options.userIp,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       },
-      severity: 'critical'
+      severity: "critical",
     });
   }
 
@@ -146,13 +153,13 @@ export class EmergencyService {
    */
   async logEvent(eventData: any): Promise<{ id: string }> {
     const eventId = this.generateUUID();
-    
+
     await this.logAuditEntry({
-      action: 'emergency_event_logged',
-      resourceType: 'emergency_event',
+      action: "emergency_event_logged",
+      resourceType: "emergency_event",
       resourceId: eventId,
       details: eventData,
-      severity: 'info'
+      severity: "info",
     });
 
     return { id: eventId };
@@ -172,31 +179,37 @@ export class EmergencyService {
       dateFrom: filter.dateFrom,
       dateTo: filter.dateTo,
       limit: filter.limit || 50,
-      offset: filter.offset || 0
+      offset: filter.offset || 0,
     });
 
     // Convert to API format
-    const formattedEvents = events.map(event => ({
+    const formattedEvents = events.map((event) => ({
       id: event.uuid,
       type: this.formatEventType(event.eventType),
-      date: event.createdAt?.toISOString().split('T')[0] || '',
-      time: event.createdAt?.toTimeString().substring(0, 5) || '',
+      date: event.createdAt?.toISOString().split("T")[0] || "",
+      time: event.createdAt?.toTimeString().substring(0, 5) || "",
       location: {
         latitude: event.locationLatitude || 0,
         longitude: event.locationLongitude || 0,
-        address: event.locationAddress || `${event.locationLatitude}, ${event.locationLongitude}`
+        address:
+          event.locationAddress ||
+          `${event.locationLatitude}, ${event.locationLongitude}`,
       },
       status: this.capitalizeFirst(event.status),
-      responseTime: event.responseTime ? this.formatResponseTime(event.responseTime) : 'N/A',
-      contacts: ['Emergency Services'], // In production, get from notifications table
-      notes: event.notes || `${this.formatEventType(event.eventType)} emergency call initiated via EmergencyGuard app.`,
+      responseTime: event.responseTime
+        ? this.formatResponseTime(event.responseTime)
+        : "N/A",
+      contacts: ["Emergency Services"], // In production, get from notifications table
+      notes:
+        event.notes ||
+        `${this.formatEventType(event.eventType)} emergency call initiated via EmergencyGuard app.`,
       emergencyNumber: event.emergencyNumber,
-      callId: event.uuid
+      callId: event.uuid,
     }));
 
     return {
       events: formattedEvents,
-      total: formattedEvents.length
+      total: formattedEvents.length,
     };
   }
 
@@ -210,14 +223,17 @@ export class EmergencyService {
   /**
    * Update event location with address
    */
-  async updateEventLocation(eventUuid: string, location: EmergencyLocation): Promise<void> {
+  async updateEventLocation(
+    eventUuid: string,
+    location: EmergencyLocation,
+  ): Promise<void> {
     const event = await this.emergencyEventModel.findByUuid(eventUuid);
     if (event) {
       await this.emergencyEventModel.update(event.id!, {
         locationAddress: location.address,
         locationLatitude: location.latitude,
         locationLongitude: location.longitude,
-        locationAccuracy: location.accuracy
+        locationAccuracy: location.accuracy,
       });
     }
   }
@@ -231,11 +247,11 @@ export class EmergencyService {
       const updatedSystemInfo = {
         ...event.systemInfo,
         ...systemInfo,
-        updatedAt: new Date().toISOString()
+        updatedAt: new Date().toISOString(),
       };
-      
+
       await this.emergencyEventModel.update(event.id!, {
-        systemInfo: updatedSystemInfo
+        systemInfo: updatedSystemInfo,
       });
     }
   }
@@ -251,7 +267,7 @@ export class EmergencyService {
 
     try {
       // Check database connectivity
-      await this.db.get('SELECT 1');
+      await this.db.get("SELECT 1");
       services.database = true;
     } catch (error) {
       services.database = false;
@@ -265,7 +281,7 @@ export class EmergencyService {
       services.core_functionality = false;
     }
 
-    const healthy = Object.values(services).every(status => status);
+    const healthy = Object.values(services).every((status) => status);
 
     return { healthy, services };
   }
@@ -273,35 +289,40 @@ export class EmergencyService {
   /**
    * Get emergency number based on emergency type and location
    */
-  getEmergencyNumber(emergencyType: string, location?: EmergencyLocation): string {
+  getEmergencyNumber(
+    emergencyType: string,
+    location?: EmergencyLocation,
+  ): string {
     // In a production app, this would determine based on geolocation
     // For now, default to US emergency services
-    
+
     switch (emergencyType) {
-      case 'police':
-        return '911';
-      case 'fire':
-        return '911';
-      case 'medical':
-        return '911';
+      case "police":
+        return "911";
+      case "fire":
+        return "911";
+      case "medical":
+        return "911";
       default:
-        return '911';
+        return "911";
     }
   }
 
   /**
    * Determine emergency severity based on type
    */
-  private determineSeverity(emergencyType: string): 'low' | 'medium' | 'high' | 'critical' {
+  private determineSeverity(
+    emergencyType: string,
+  ): "low" | "medium" | "high" | "critical" {
     switch (emergencyType) {
-      case 'medical':
-        return 'critical';
-      case 'fire':
-        return 'critical';
-      case 'police':
-        return 'high';
+      case "medical":
+        return "critical";
+      case "fire":
+        return "critical";
+      case "police":
+        return "high";
       default:
-        return 'high';
+        return "high";
     }
   }
 
@@ -321,16 +342,16 @@ export class EmergencyService {
           action, resource_type, resource_id, details, severity
         ) VALUES (?, ?, ?, ?, ?)
       `;
-      
+
       await this.db.run(query, [
         entry.action,
         entry.resourceType,
         entry.resourceId,
         JSON.stringify(entry.details),
-        entry.severity
+        entry.severity,
       ]);
     } catch (error) {
-      console.error('Failed to log audit entry:', error);
+      console.error("Failed to log audit entry:", error);
       // Don't throw - audit logging should not break main functionality
     }
   }
@@ -339,9 +360,9 @@ export class EmergencyService {
    * Generate UUID v4
    */
   private generateUUID(): string {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-      const r = Math.random() * 16 | 0;
-      const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+      const r = (Math.random() * 16) | 0;
+      const v = c === "x" ? r : (r & 0x3) | 0x8;
       return v.toString(16);
     });
   }
@@ -351,14 +372,14 @@ export class EmergencyService {
    */
   private formatEventType(eventType: string): string {
     switch (eventType) {
-      case 'medical':
-        return 'Medical Emergency';
-      case 'fire':
-        return 'Fire Emergency';
-      case 'police':
-        return 'Police Emergency';
+      case "medical":
+        return "Medical Emergency";
+      case "fire":
+        return "Fire Emergency";
+      case "police":
+        return "Police Emergency";
       default:
-        return 'General Emergency';
+        return "General Emergency";
     }
   }
 
@@ -368,7 +389,7 @@ export class EmergencyService {
   private formatResponseTime(seconds: number): string {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
   }
 
   /**

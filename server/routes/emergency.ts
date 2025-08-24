@@ -8,12 +8,17 @@ interface NotificationResult {
 }
 
 // Emergency SMS notification
-async function sendEmergencySMS(phone: string, contactName: string, message: string, location?: { latitude: number; longitude: number }): Promise<NotificationResult> {
+async function sendEmergencySMS(
+  phone: string,
+  contactName: string,
+  message: string,
+  location?: { latitude: number; longitude: number },
+): Promise<NotificationResult> {
   try {
     // Format emergency SMS message
     const locationText = location
       ? `\nLocation: https://maps.google.com/maps?q=${location.latitude},${location.longitude}`
-      : '';
+      : "";
 
     const smsMessage = `🚨 EMERGENCY ALERT 🚨\n\n${message}${locationText}\n\nThis is an automated emergency notification from EmergencyGuard.`;
 
@@ -37,29 +42,39 @@ async function sendEmergencySMS(phone: string, contactName: string, message: str
     console.log(`Length: ${smsMessage.length} characters`);
 
     // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 500 + Math.random() * 1000));
+    await new Promise((resolve) =>
+      setTimeout(resolve, 500 + Math.random() * 1000),
+    );
 
     // Simulate occasional failures
-    if (Math.random() < 0.1) { // 10% failure rate for demo
-      return { success: false, error: 'SMS delivery failed - network error' };
+    if (Math.random() < 0.1) {
+      // 10% failure rate for demo
+      return { success: false, error: "SMS delivery failed - network error" };
     }
 
     const messageId = `sms_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     return { success: true, messageId };
-
   } catch (error) {
-    console.error('SMS sending error:', error);
-    return { success: false, error: error instanceof Error ? error.message : 'Unknown SMS error' };
+    console.error("SMS sending error:", error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown SMS error",
+    };
   }
 }
 
 // Emergency Email notification
-async function sendEmergencyEmail(email: string, contactName: string, message: string, location?: { latitude: number; longitude: number }): Promise<NotificationResult> {
+async function sendEmergencyEmail(
+  email: string,
+  contactName: string,
+  message: string,
+  location?: { latitude: number; longitude: number },
+): Promise<NotificationResult> {
   try {
     // Format emergency email
     const locationHtml = location
       ? `<p><strong>Location:</strong> <a href="https://maps.google.com/maps?q=${location.latitude},${location.longitude}">View on Google Maps</a></p>`
-      : '';
+      : "";
 
     const emailHtml = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -83,7 +98,7 @@ async function sendEmergencyEmail(email: string, contactName: string, message: s
 
 ${message}
 
-${location ? `Location: https://maps.google.com/maps?q=${location.latitude},${location.longitude}` : ''}
+${location ? `Location: https://maps.google.com/maps?q=${location.latitude},${location.longitude}` : ""}
 
 This is an automated emergency notification from EmergencyGuard.
 Please respond immediately.
@@ -112,19 +127,24 @@ Please respond immediately.
     console.log(`Text content: ${emailText}`);
 
     // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000));
+    await new Promise((resolve) =>
+      setTimeout(resolve, 1000 + Math.random() * 2000),
+    );
 
     // Simulate occasional failures
-    if (Math.random() < 0.05) { // 5% failure rate for demo
-      return { success: false, error: 'Email delivery failed - server error' };
+    if (Math.random() < 0.05) {
+      // 5% failure rate for demo
+      return { success: false, error: "Email delivery failed - server error" };
     }
 
     const messageId = `email_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     return { success: true, messageId };
-
   } catch (error) {
-    console.error('Email sending error:', error);
-    return { success: false, error: error instanceof Error ? error.message : 'Unknown email error' };
+    console.error("Email sending error:", error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown email error",
+    };
   }
 }
 
@@ -139,7 +159,7 @@ export interface EmergencyCallRequest {
     phone?: string;
     medicalInfo?: string;
   };
-  emergencyType: 'medical' | 'fire' | 'police' | 'general';
+  emergencyType: "medical" | "fire" | "police" | "general";
   timestamp: string;
 }
 
@@ -183,44 +203,45 @@ export interface ContactAlertResponse {
 export const initiateEmergencyCall: RequestHandler = async (req, res) => {
   try {
     const emergencyData: EmergencyCallRequest = req.body;
-    
+
     // Log emergency call
     const callId = `emergency_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    
+
     // In a real implementation, this would:
     // 1. Contact emergency services API
     // 2. Send location data to emergency dispatch
     // 3. Log the call in emergency systems
-    
+
     console.log(`EMERGENCY CALL INITIATED: ${callId}`, {
       type: emergencyData.emergencyType,
       location: emergencyData.location,
-      timestamp: emergencyData.timestamp
+      timestamp: emergencyData.timestamp,
     });
 
     // Determine emergency number based on type and location
-    let emergencyNumber = '911'; // Default US emergency number
-    
+    let emergencyNumber = "911"; // Default US emergency number
+
     // In a real app, you'd determine based on user's location
     // For now, we'll use standard emergency numbers
-    
+
     const response: EmergencyCallResponse = {
       success: true,
       callId,
-      message: 'Emergency call initiated. Location shared with emergency services.',
+      message:
+        "Emergency call initiated. Location shared with emergency services.",
       emergencyNumber,
       location: emergencyData.location,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
 
     res.json(response);
   } catch (error) {
-    console.error('Emergency call error:', error);
+    console.error("Emergency call error:", error);
     res.status(500).json({
       success: false,
-      callId: '',
-      message: 'Failed to initiate emergency call. Please call 911 directly.',
-      timestamp: new Date().toISOString()
+      callId: "",
+      message: "Failed to initiate emergency call. Please call 911 directly.",
+      timestamp: new Date().toISOString(),
     });
   }
 };
@@ -229,7 +250,7 @@ export const initiateEmergencyCall: RequestHandler = async (req, res) => {
 export const alertEmergencyContacts: RequestHandler = async (req, res) => {
   try {
     const alertData: ContactAlertRequest = req.body;
-    
+
     const alertId = `alert_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     const failedContacts: string[] = [];
     let contactsNotified = 0;
@@ -241,7 +262,12 @@ export const alertEmergencyContacts: RequestHandler = async (req, res) => {
 
         // Send SMS if phone number provided
         if (contact.phone) {
-          const smsResult = await sendEmergencySMS(contact.phone, contact.name, alertData.message, alertData.location);
+          const smsResult = await sendEmergencySMS(
+            contact.phone,
+            contact.name,
+            alertData.message,
+            alertData.location,
+          );
           if (smsResult.success) {
             notificationSent = true;
             console.log(`SMS sent to ${contact.name} at ${contact.phone}`);
@@ -252,12 +278,20 @@ export const alertEmergencyContacts: RequestHandler = async (req, res) => {
 
         // Send Email if email provided
         if (contact.email) {
-          const emailResult = await sendEmergencyEmail(contact.email, contact.name, alertData.message, alertData.location);
+          const emailResult = await sendEmergencyEmail(
+            contact.email,
+            contact.name,
+            alertData.message,
+            alertData.location,
+          );
           if (emailResult.success) {
             notificationSent = true;
             console.log(`Email sent to ${contact.name} at ${contact.email}`);
           } else {
-            console.error(`Email failed for ${contact.name}:`, emailResult.error);
+            console.error(
+              `Email failed for ${contact.name}:`,
+              emailResult.error,
+            );
           }
         }
 
@@ -277,18 +311,18 @@ export const alertEmergencyContacts: RequestHandler = async (req, res) => {
       alertId,
       contactsNotified,
       failedContacts,
-      message: `Successfully notified ${contactsNotified} emergency contacts.`
+      message: `Successfully notified ${contactsNotified} emergency contacts.`,
     };
 
     res.json(response);
   } catch (error) {
-    console.error('Contact alert error:', error);
+    console.error("Contact alert error:", error);
     res.status(500).json({
       success: false,
-      alertId: '',
+      alertId: "",
       contactsNotified: 0,
       failedContacts: [],
-      message: 'Failed to alert emergency contacts.'
+      message: "Failed to alert emergency contacts.",
     });
   }
 };
@@ -297,24 +331,24 @@ export const alertEmergencyContacts: RequestHandler = async (req, res) => {
 export const logEmergencyEvent: RequestHandler = async (req, res) => {
   try {
     const eventData = req.body;
-    
+
     const eventId = `event_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    
+
     // In real implementation, save to database
     console.log(`EMERGENCY EVENT LOGGED: ${eventId}`, eventData);
-    
+
     res.json({
       success: true,
       eventId,
-      message: 'Emergency event logged successfully.',
-      timestamp: new Date().toISOString()
+      message: "Emergency event logged successfully.",
+      timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    console.error('Event logging error:', error);
+    console.error("Event logging error:", error);
     res.status(500).json({
       success: false,
-      eventId: '',
-      message: 'Failed to log emergency event.'
+      eventId: "",
+      message: "Failed to log emergency event.",
     });
   }
 };
@@ -332,30 +366,30 @@ export const getEmergencyHistory: RequestHandler = async (req, res) => {
         time: "14:30",
         location: {
           latitude: 40.7128,
-          longitude: -74.0060,
-          address: "123 Main St, New York, NY"
+          longitude: -74.006,
+          address: "123 Main St, New York, NY",
         },
         status: "Resolved",
         responseTime: "2:45",
         contacts: ["John Doe", "Jane Smith"],
         notes: "Real emergency response - paramedics dispatched successfully",
         emergencyNumber: "911",
-        callId: "emergency_1703443200000_def456"
-      }
+        callId: "emergency_1703443200000_def456",
+      },
     ];
-    
+
     res.json({
       success: true,
       history,
-      total: history.length
+      total: history.length,
     });
   } catch (error) {
-    console.error('History fetch error:', error);
+    console.error("History fetch error:", error);
     res.status(500).json({
       success: false,
       history: [],
       total: 0,
-      message: 'Failed to fetch emergency history.'
+      message: "Failed to fetch emergency history.",
     });
   }
 };

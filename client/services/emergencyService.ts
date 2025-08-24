@@ -1,10 +1,10 @@
-import { 
-  EmergencyCallRequest, 
-  EmergencyCallResponse, 
-  ContactAlertRequest, 
+import {
+  EmergencyCallRequest,
+  EmergencyCallResponse,
+  ContactAlertRequest,
   ContactAlertResponse,
-  EmergencyHistoryResponse 
-} from '@shared/api';
+  EmergencyHistoryResponse,
+} from "@shared/api";
 
 export interface EmergencyContact {
   name: string;
@@ -21,7 +21,7 @@ export interface EmergencyLocation {
 }
 
 export interface EmergencyCallOptions {
-  type: 'medical' | 'fire' | 'police' | 'general';
+  type: "medical" | "fire" | "police" | "general";
   location?: EmergencyLocation;
   userInfo?: {
     name?: string;
@@ -41,28 +41,32 @@ class EmergencyService {
   private baseUrl: string;
 
   constructor() {
-    this.baseUrl = '/api/emergency';
+    this.baseUrl = "/api/emergency";
   }
 
   /**
    * Initiate an emergency call
    */
-  async initiateEmergencyCall(options: EmergencyCallOptions): Promise<EmergencyCallResponse> {
+  async initiateEmergencyCall(
+    options: EmergencyCallOptions,
+  ): Promise<EmergencyCallResponse> {
     const requestData: EmergencyCallRequest = {
       emergencyType: options.type,
       timestamp: new Date().toISOString(),
-      location: options.location ? {
-        latitude: options.location.latitude,
-        longitude: options.location.longitude,
-        accuracy: options.location.accuracy
-      } : undefined,
-      userInfo: options.userInfo
+      location: options.location
+        ? {
+            latitude: options.location.latitude,
+            longitude: options.location.longitude,
+            accuracy: options.location.accuracy,
+          }
+        : undefined,
+      userInfo: options.userInfo,
     };
 
     const response = await fetch(`${this.baseUrl}/call`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(requestData),
     });
@@ -77,21 +81,25 @@ class EmergencyService {
   /**
    * Alert emergency contacts
    */
-  async alertEmergencyContacts(options: ContactAlertOptions): Promise<ContactAlertResponse> {
+  async alertEmergencyContacts(
+    options: ContactAlertOptions,
+  ): Promise<ContactAlertResponse> {
     const requestData: ContactAlertRequest = {
       contacts: options.contacts,
       message: options.message,
       emergencyType: options.emergencyType,
-      location: options.location ? {
-        latitude: options.location.latitude,
-        longitude: options.location.longitude
-      } : undefined
+      location: options.location
+        ? {
+            latitude: options.location.latitude,
+            longitude: options.location.longitude,
+          }
+        : undefined,
     };
 
     const response = await fetch(`${this.baseUrl}/alert-contacts`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(requestData),
     });
@@ -108,9 +116,9 @@ class EmergencyService {
    */
   async logEmergencyEvent(eventData: any): Promise<void> {
     const response = await fetch(`${this.baseUrl}/log-event`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(eventData),
     });
@@ -127,7 +135,9 @@ class EmergencyService {
     const response = await fetch(`${this.baseUrl}/history`);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch emergency history: ${response.statusText}`);
+      throw new Error(
+        `Failed to fetch emergency history: ${response.statusText}`,
+      );
     }
 
     return await response.json();
@@ -138,9 +148,9 @@ class EmergencyService {
    */
   makeDirectCall(phoneNumber: string): void {
     try {
-      window.open(`tel:${phoneNumber}`, '_self');
+      window.open(`tel:${phoneNumber}`, "_self");
     } catch (error) {
-      console.error('Failed to initiate phone call:', error);
+      console.error("Failed to initiate phone call:", error);
       alert(`Please call ${phoneNumber} manually.`);
     }
   }
@@ -149,46 +159,50 @@ class EmergencyService {
    * Generate emergency message for contacts
    */
   generateEmergencyMessage(
-    emergencyType: string, 
-    location?: EmergencyLocation, 
-    customMessage?: string
+    emergencyType: string,
+    location?: EmergencyLocation,
+    customMessage?: string,
   ): string {
-    const baseMessage = customMessage || `Emergency situation - ${emergencyType} emergency. Please check on me immediately.`;
-    
+    const baseMessage =
+      customMessage ||
+      `Emergency situation - ${emergencyType} emergency. Please check on me immediately.`;
+
     if (location) {
-      const locationText = location.address 
+      const locationText = location.address
         ? `Location: ${location.address}`
         : `Location: https://maps.google.com/maps?q=${location.latitude},${location.longitude}`;
-      
+
       return `🚨 EMERGENCY ALERT 🚨\n\n${baseMessage}\n\n${locationText}\n\nThis is an automated emergency notification from EmergencyGuard.`;
     }
-    
+
     return `🚨 EMERGENCY ALERT 🚨\n\n${baseMessage}\n\nThis is an automated emergency notification from EmergencyGuard.`;
   }
 
   /**
    * Get emergency numbers by country/region
    */
-  getEmergencyNumbers(countryCode = 'US'): { [key: string]: string } {
-    const emergencyNumbers: { [country: string]: { [service: string]: string } } = {
+  getEmergencyNumbers(countryCode = "US"): { [key: string]: string } {
+    const emergencyNumbers: {
+      [country: string]: { [service: string]: string };
+    } = {
       US: {
-        general: '911',
-        poison: '1-800-222-1222',
-        suicide: '988'
+        general: "911",
+        poison: "1-800-222-1222",
+        suicide: "988",
       },
       CA: {
-        general: '911'
+        general: "911",
       },
       UK: {
-        general: '999',
-        alternative: '112'
+        general: "999",
+        alternative: "112",
       },
       AU: {
-        general: '000'
+        general: "000",
       },
       EU: {
-        general: '112'
-      }
+        general: "112",
+      },
     };
 
     return emergencyNumbers[countryCode] || emergencyNumbers.US;
@@ -201,23 +215,23 @@ class EmergencyService {
     const errors: string[] = [];
 
     if (!contact.name || contact.name.trim().length === 0) {
-      errors.push('Contact name is required');
+      errors.push("Contact name is required");
     }
 
     if (!contact.phone && !contact.email) {
-      errors.push('At least one contact method (phone or email) is required');
+      errors.push("At least one contact method (phone or email) is required");
     }
 
     if (contact.phone && !this.isValidPhoneNumber(contact.phone)) {
-      errors.push('Invalid phone number format');
+      errors.push("Invalid phone number format");
     }
 
     if (contact.email && !this.isValidEmail(contact.email)) {
-      errors.push('Invalid email format');
+      errors.push("Invalid email format");
     }
 
     if (!contact.relationship || contact.relationship.trim().length === 0) {
-      errors.push('Relationship is required');
+      errors.push("Relationship is required");
     }
 
     return errors;
@@ -247,7 +261,7 @@ class EmergencyService {
     const totalSeconds = Math.floor(diffMs / 1000);
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   }
 
   /**

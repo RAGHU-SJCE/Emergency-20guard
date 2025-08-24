@@ -21,21 +21,38 @@ export function Header({ className = "" }: HeaderProps) {
 
   const navigation: NavigationItem[] = [
     { name: "Home", href: "/", icon: Shield },
-    { name: "Emergency Contacts", href: "/contacts", icon: Users, shortName: "Contacts" },
-    { name: "Emergency History", href: "/history", icon: History, shortName: "History" },
-    { name: "Emergency Call", href: "/emergency", icon: Phone, shortName: "Call" },
+    {
+      name: "Emergency Contacts",
+      href: "/contacts",
+      icon: Users,
+      shortName: "Contacts",
+    },
+    {
+      name: "Emergency History",
+      href: "/history",
+      icon: History,
+      shortName: "History",
+    },
+    {
+      name: "Emergency Call",
+      href: "/emergency",
+      icon: Phone,
+      shortName: "Call",
+    },
   ];
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
   return (
     <>
-      <header className={`bg-white/95 backdrop-blur-sm border-b border-slate-200 sticky top-0 z-50 ${className}`}>
+      <header
+        className={`bg-white/95 backdrop-blur-sm border-b border-slate-200 sticky top-0 z-50 ${className}`}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className="flex items-center space-x-2 min-w-0 flex-shrink-0"
               onClick={closeMobileMenu}
             >
@@ -67,7 +84,9 @@ export function Header({ className = "" }: HeaderProps) {
                   >
                     <Icon className="h-4 w-4" />
                     <span className="hidden xl:block">{item.name}</span>
-                    <span className="xl:hidden">{item.shortName || item.name}</span>
+                    <span className="xl:hidden">
+                      {item.shortName || item.name}
+                    </span>
                   </Link>
                 );
               })}
@@ -76,7 +95,11 @@ export function Header({ className = "" }: HeaderProps) {
             {/* Mobile Navigation Button & Emergency Button */}
             <div className="flex items-center space-x-2">
               {/* Emergency Button - Always Visible */}
-              <EmergencyButton variant="inline" className="px-3 sm:px-4" size="sm" />
+              <EmergencyButton
+                variant="inline"
+                className="px-3 sm:px-4"
+                size="sm"
+              />
 
               {/* Mobile Menu Button */}
               <Button
@@ -126,7 +149,7 @@ export function Header({ className = "" }: HeaderProps) {
 
       {/* Overlay for mobile menu */}
       {mobileMenuOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
           onClick={closeMobileMenu}
           aria-hidden="true"

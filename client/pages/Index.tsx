@@ -72,8 +72,12 @@ export default function Index() {
               <div className="flex items-center justify-center text-center">
                 <AlertTriangle className="h-5 w-5 text-red-600 mr-2 flex-shrink-0" />
                 <div className="text-sm text-red-700">
-                  <strong>REAL EMERGENCY SYSTEM:</strong> This app makes actual emergency calls.
-                  <span className="hidden sm:inline"> For life-threatening emergencies, call 911 directly.</span>
+                  <strong>REAL EMERGENCY SYSTEM:</strong> This app makes actual
+                  emergency calls.
+                  <span className="hidden sm:inline">
+                    {" "}
+                    For life-threatening emergencies, call 911 directly.
+                  </span>
                 </div>
               </div>
             </div>
@@ -91,8 +95,9 @@ export default function Index() {
             </h1>
 
             <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-10">
-              EmergencyGuard connects you to real emergency services with GPS location sharing,
-              automatic contact alerts, and comprehensive emergency logging.
+              EmergencyGuard connects you to real emergency services with GPS
+              location sharing, automatic contact alerts, and comprehensive
+              emergency logging.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -281,7 +286,8 @@ export default function Index() {
                 Real Emergency Response System
               </h2>
               <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-                EmergencyGuard is a functional emergency response application that connects to real emergency services.
+                EmergencyGuard is a functional emergency response application
+                that connects to real emergency services.
               </p>
             </div>
 
@@ -294,11 +300,13 @@ export default function Index() {
                 <ul className="space-y-3 text-slate-600">
                   <li className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-safe mr-3 mt-0.5 flex-shrink-0" />
-                    Emergency buttons initiate actual calls to 911 and emergency services
+                    Emergency buttons initiate actual calls to 911 and emergency
+                    services
                   </li>
                   <li className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-safe mr-3 mt-0.5 flex-shrink-0" />
-                    GPS location is automatically shared with emergency responders
+                    GPS location is automatically shared with emergency
+                    responders
                   </li>
                   <li className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-safe mr-3 mt-0.5 flex-shrink-0" />
@@ -306,7 +314,8 @@ export default function Index() {
                   </li>
                   <li className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-safe mr-3 mt-0.5 flex-shrink-0" />
-                    All emergency events are logged with timestamps and locations
+                    All emergency events are logged with timestamps and
+                    locations
                   </li>
                 </ul>
               </div>
@@ -319,11 +328,13 @@ export default function Index() {
                 <ul className="space-y-3 text-slate-600">
                   <li className="flex items-start">
                     <AlertTriangle className="h-5 w-5 text-warning mr-3 mt-0.5 flex-shrink-0" />
-                    This app supplements but does not replace calling 911 directly
+                    This app supplements but does not replace calling 911
+                    directly
                   </li>
                   <li className="flex items-start">
                     <AlertTriangle className="h-5 w-5 text-warning mr-3 mt-0.5 flex-shrink-0" />
-                    App creators are not responsible for emergency response delays
+                    App creators are not responsible for emergency response
+                    delays
                   </li>
                   <li className="flex items-start">
                     <AlertTriangle className="h-5 w-5 text-warning mr-3 mt-0.5 flex-shrink-0" />
@@ -341,11 +352,15 @@ export default function Index() {
               <div className="flex items-start">
                 <Heart className="h-6 w-6 text-yellow-600 mr-3 mt-0.5 flex-shrink-0" />
                 <div>
-                  <h4 className="font-semibold text-yellow-800 mb-2">Use Responsibly</h4>
+                  <h4 className="font-semibold text-yellow-800 mb-2">
+                    Use Responsibly
+                  </h4>
                   <p className="text-yellow-700 text-sm">
-                    By using EmergencyGuard, you acknowledge that this is a real emergency response system.
-                    False emergency calls are illegal and can result in serious consequences.
-                    Only use emergency features during genuine emergencies that require immediate assistance.
+                    By using EmergencyGuard, you acknowledge that this is a real
+                    emergency response system. False emergency calls are illegal
+                    and can result in serious consequences. Only use emergency
+                    features during genuine emergencies that require immediate
+                    assistance.
                   </p>
                 </div>
               </div>
@@ -353,7 +368,13 @@ export default function Index() {
 
             <div className="mt-6 text-center">
               <p className="text-sm text-slate-500">
-                For questions about this system, contact <a href="mailto:support@emergencyguard.com" className="text-primary hover:underline">support@emergencyguard.com</a>
+                For questions about this system, contact{" "}
+                <a
+                  href="mailto:support@emergencyguard.com"
+                  className="text-primary hover:underline"
+                >
+                  support@emergencyguard.com
+                </a>
               </p>
             </div>
           </div>
