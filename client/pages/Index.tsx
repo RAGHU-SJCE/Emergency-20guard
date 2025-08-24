@@ -267,6 +267,98 @@ export default function Index() {
           </div>
         </div>
       </section>
+
+      {/* Legal Disclaimer Section */}
+      <section className="py-16 bg-slate-100 border-t border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-xl p-8 lg:p-12 shadow-sm border border-slate-200">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center px-4 py-2 bg-red-100 text-red-700 rounded-full text-sm font-medium mb-4">
+                <AlertTriangle className="h-4 w-4 mr-2" />
+                Important Legal Information
+              </div>
+              <h2 className="text-3xl font-bold text-secondary mb-4">
+                Real Emergency Response System
+              </h2>
+              <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+                EmergencyGuard is a functional emergency response application that connects to real emergency services.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-xl font-semibold text-secondary mb-4 flex items-center">
+                  <Shield className="h-5 w-5 text-primary mr-2" />
+                  How It Works
+                </h3>
+                <ul className="space-y-3 text-slate-600">
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-safe mr-3 mt-0.5 flex-shrink-0" />
+                    Emergency buttons initiate actual calls to 911 and emergency services
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-safe mr-3 mt-0.5 flex-shrink-0" />
+                    GPS location is automatically shared with emergency responders
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-safe mr-3 mt-0.5 flex-shrink-0" />
+                    Emergency contacts receive real SMS and email notifications
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-safe mr-3 mt-0.5 flex-shrink-0" />
+                    All emergency events are logged with timestamps and locations
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold text-secondary mb-4 flex items-center">
+                  <AlertTriangle className="h-5 w-5 text-warning mr-2" />
+                  Important Disclaimers
+                </h3>
+                <ul className="space-y-3 text-slate-600">
+                  <li className="flex items-start">
+                    <AlertTriangle className="h-5 w-5 text-warning mr-3 mt-0.5 flex-shrink-0" />
+                    This app supplements but does not replace calling 911 directly
+                  </li>
+                  <li className="flex items-start">
+                    <AlertTriangle className="h-5 w-5 text-warning mr-3 mt-0.5 flex-shrink-0" />
+                    App creators are not responsible for emergency response delays
+                  </li>
+                  <li className="flex items-start">
+                    <AlertTriangle className="h-5 w-5 text-warning mr-3 mt-0.5 flex-shrink-0" />
+                    Network connectivity required for all emergency features
+                  </li>
+                  <li className="flex items-start">
+                    <AlertTriangle className="h-5 w-5 text-warning mr-3 mt-0.5 flex-shrink-0" />
+                    Test the app features when NOT in an actual emergency
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-8 p-6 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <div className="flex items-start">
+                <Heart className="h-6 w-6 text-yellow-600 mr-3 mt-0.5 flex-shrink-0" />
+                <div>
+                  <h4 className="font-semibold text-yellow-800 mb-2">Use Responsibly</h4>
+                  <p className="text-yellow-700 text-sm">
+                    By using EmergencyGuard, you acknowledge that this is a real emergency response system.
+                    False emergency calls are illegal and can result in serious consequences.
+                    Only use emergency features during genuine emergencies that require immediate assistance.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 text-center">
+              <p className="text-sm text-slate-500">
+                For questions about this system, contact <a href="mailto:support@emergencyguard.com" className="text-primary hover:underline">support@emergencyguard.com</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </Layout>
   );
 }
