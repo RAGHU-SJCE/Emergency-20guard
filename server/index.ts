@@ -2,6 +2,12 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
+import {
+  initiateEmergencyCall,
+  alertEmergencyContacts,
+  logEmergencyEvent,
+  getEmergencyHistory
+} from "./routes/emergency";
 
 export function createServer() {
   const app = express();
