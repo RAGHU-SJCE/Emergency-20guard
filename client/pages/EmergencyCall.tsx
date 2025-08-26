@@ -604,22 +604,40 @@ export default function EmergencyCall() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => emergencyServices.sendSOSSignal()}
-                className="min-h-[48px] border-warning text-warning hover:bg-warning/10"
+                onClick={handleSendSOS}
+                disabled={isSendingSOS}
+                className="min-h-[48px] border-warning text-warning hover:bg-warning/10 disabled:opacity-50"
               >
-                <Zap className="h-4 w-4 mr-2" />
-                Send SOS
+                {isSendingSOS ? (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    Sending SOS...
+                  </>
+                ) : (
+                  <>
+                    <Zap className="h-4 w-4 mr-2" />
+                    Send SOS
+                  </>
+                )}
               </Button>
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() =>
-                  emergencyServices.shareLocationWithEmergencyServices()
-                }
-                className="min-h-[48px] border-safe text-safe hover:bg-safe/10"
+                onClick={handleShareLocation}
+                disabled={isSharingLocation}
+                className="min-h-[48px] border-safe text-safe hover:bg-safe/10 disabled:opacity-50"
               >
-                <MapPin className="h-4 w-4 mr-2" />
-                Share Location
+                {isSharingLocation ? (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    Sharing...
+                  </>
+                ) : (
+                  <>
+                    <MapPin className="h-4 w-4 mr-2" />
+                    Share Location
+                  </>
+                )}
               </Button>
             </div>
           </div>
