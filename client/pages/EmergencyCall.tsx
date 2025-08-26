@@ -273,6 +273,7 @@ export default function EmergencyCall() {
       }
 
       // Provide user feedback
+      console.log("🟢 Permissions updated:", permissionsUpdated);
       if (permissionsUpdated) {
         // Show success notification if notifications are now available
         if (deviceFeatures.notifications.permission === "granted") {
