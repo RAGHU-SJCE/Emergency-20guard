@@ -284,7 +284,6 @@ export default function EmergencyCall() {
         "There was an error requesting permissions. Please try again or enable them manually in your browser settings.",
       );
     } finally {
-      console.log("🔵 requestPermissions finished, setting loading to false");
       setIsRequestingPermissions(false);
     }
   };
