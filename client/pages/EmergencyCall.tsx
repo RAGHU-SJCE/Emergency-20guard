@@ -130,17 +130,48 @@ export default function EmergencyCall() {
   };
 
   const requestPermissions = async () => {
+    let permissionsUpdated = false;
+
     // Request notification permission
-    if (deviceFeatures.notifications.supported) {
-      await deviceFeatures.notifications.requestPermission();
+    if (deviceFeatures.notifications.supported && deviceFeatures.notifications.permission !== "granted") {
+      try {
+        const permission = await deviceFeatures.notifications.requestNotificationPermission();
+        if (permission === "granted") {
+          permissionsUpdated = true;
+          console.log("Notification permission granted");
+        }
+      } catch (error) {
+        console.warn("Notification permission request failed:", error);
+      }
     }
 
     // Request location permission by trying to get location
-    if (deviceFeatures.geolocation.supported) {
+    if (deviceFeatures.geolocation.supported && deviceFeatures.geolocation.permission !== "granted") {
       try {
-        await deviceFeatures.geolocation.getCurrentLocation();
+        const position = await deviceFeatures.geolocation.getCurrentLocation();
+        if (position) {
+          permissionsUpdated = true;
+          setLocationDisplay(`${position.coords.latitude.toFixed(6)}, ${position.coords.longitude.toFixed(6)}`);
+          console.log("Location permission granted");
+        }
       } catch (error) {
-        console.warn("Location permission denied or unavailable");
+        console.warn("Location permission denied or unavailable:", error);
+      }
+    }
+
+    // Provide user feedback
+    if (permissionsUpdated) {
+      // Show success notification if notifications are now available
+      if (deviceFeatures.notifications.permission === "granted") {
+        deviceFeatures.notifications.sendNotification("Permissions Enabled", {
+          body: "Emergency features are now fully enabled on this device.",
+          tag: "permissions-enabled"
+        });
+      }
+
+      // Vibrate to confirm
+      if (deviceFeatures.vibration.supported) {
+        deviceFeatures.vibration.vibrate([100, 50, 100]);
       }
     }
   };
