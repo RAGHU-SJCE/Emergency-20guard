@@ -258,21 +258,39 @@ export function useEmergencyServices(): EmergencyServices {
         ]);
       }
 
-      // Flash screen or send visual SOS if supported
+      // Get location and send SOS (this will throw if it fails)
+      const position = await shareLocationWithEmergencyServices();
+
+      // Send visual notification if supported
       if (deviceFeatures.notifications.permission === "granted") {
-        deviceFeatures.notifications.sendNotification("SOS Signal Sent", {
-          body: "Emergency SOS signal has been transmitted.",
+        deviceFeatures.notifications.sendNotification("🚨 SOS Signal Transmitted", {
+          body: `Emergency SOS sent with location: ${position.coords.latitude.toFixed(4)}, ${position.coords.longitude.toFixed(4)}`,
           tag: "sos-signal",
           requireInteraction: true,
         });
       }
 
-      // Get location and send SOS
-      await shareLocationWithEmergencyServices();
+      console.log("SOS signal sent successfully with location:", {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+        accuracy: position.coords.accuracy,
+        timestamp: new Date().toISOString(),
+      });
 
-      console.log("SOS signal sent");
+      return position;
     } catch (error) {
       console.error("Failed to send SOS signal:", error);
+
+      // Still send notification if we can, even without location
+      if (deviceFeatures.notifications.permission === "granted") {
+        deviceFeatures.notifications.sendNotification("⚠️ SOS Signal Error", {
+          body: "Unable to send SOS with location. Call emergency services directly.",
+          tag: "sos-error",
+          requireInteraction: true,
+        });
+      }
+
+      throw error;
     }
   };
 
