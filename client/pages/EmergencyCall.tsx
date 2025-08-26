@@ -34,6 +34,8 @@ export default function EmergencyCall() {
   >("general");
   const [isCallInProgress, setIsCallInProgress] = useState(false);
   const [isRequestingPermissions, setIsRequestingPermissions] = useState(false);
+  const [isSendingSOS, setIsSendingSOS] = useState(false);
+  const [isSharingLocation, setIsSharingLocation] = useState(false);
 
   // Mock emergency contacts for alert functionality
   const emergencyContacts = [
