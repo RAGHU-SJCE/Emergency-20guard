@@ -118,7 +118,9 @@ export default function EmergencyCall() {
       await emergencyServices.sendSOSSignal();
 
       // Show success feedback
-      alert("SOS signal sent successfully! Emergency services have been notified of your location.");
+      alert(
+        "SOS signal sent successfully! Emergency services have been notified of your location.",
+      );
 
       // Log the SOS event
       await emergencyServices.logEmergencyEvent({
@@ -128,7 +130,9 @@ export default function EmergencyCall() {
       });
     } catch (error) {
       console.error("Failed to send SOS signal:", error);
-      alert("Failed to send SOS signal. Please try again or call emergency services directly.");
+      alert(
+        "Failed to send SOS signal. Please try again or call emergency services directly.",
+      );
     } finally {
       setIsSendingSOS(false);
     }
@@ -137,16 +141,19 @@ export default function EmergencyCall() {
   const handleShareLocation = async () => {
     try {
       setIsSharingLocation(true);
-      const position = await emergencyServices.shareLocationWithEmergencyServices();
+      const position =
+        await emergencyServices.shareLocationWithEmergencyServices();
 
       // Update location display
-      setLocationDisplay(`${position.coords.latitude.toFixed(6)}, ${position.coords.longitude.toFixed(6)}`);
+      setLocationDisplay(
+        `${position.coords.latitude.toFixed(6)}, ${position.coords.longitude.toFixed(6)}`,
+      );
 
       // Show success feedback
       if (deviceFeatures.notifications.permission === "granted") {
         deviceFeatures.notifications.sendNotification("Location Shared", {
           body: "Your location has been shared with emergency services.",
-          tag: "location-shared"
+          tag: "location-shared",
         });
       } else {
         alert("Location shared successfully with emergency services!");
@@ -171,11 +178,17 @@ export default function EmergencyCall() {
       console.error("Failed to share location:", error);
 
       if (error instanceof Error && error.message.includes("not supported")) {
-        alert("Location sharing is not supported on this device. Please enable location services in your browser settings.");
+        alert(
+          "Location sharing is not supported on this device. Please enable location services in your browser settings.",
+        );
       } else if (error instanceof Error && error.message.includes("denied")) {
-        alert("Location access denied. Please enable location permissions to share your location with emergency services.");
+        alert(
+          "Location access denied. Please enable location permissions to share your location with emergency services.",
+        );
       } else {
-        alert("Failed to share location. Please check your location settings and try again.");
+        alert(
+          "Failed to share location. Please check your location settings and try again.",
+        );
       }
     } finally {
       setIsSharingLocation(false);
@@ -209,9 +222,13 @@ export default function EmergencyCall() {
 
     try {
       // Request notification permission
-      if (deviceFeatures.notifications.supported && deviceFeatures.notifications.permission !== "granted") {
+      if (
+        deviceFeatures.notifications.supported &&
+        deviceFeatures.notifications.permission !== "granted"
+      ) {
         try {
-          const permission = await deviceFeatures.notifications.requestNotificationPermission();
+          const permission =
+            await deviceFeatures.notifications.requestNotificationPermission();
           if (permission === "granted") {
             permissionsUpdated = true;
             console.log("Notification permission granted");
@@ -222,12 +239,18 @@ export default function EmergencyCall() {
       }
 
       // Request location permission by trying to get location
-      if (deviceFeatures.geolocation.supported && deviceFeatures.geolocation.permission !== "granted") {
+      if (
+        deviceFeatures.geolocation.supported &&
+        deviceFeatures.geolocation.permission !== "granted"
+      ) {
         try {
-          const position = await deviceFeatures.geolocation.getCurrentLocation();
+          const position =
+            await deviceFeatures.geolocation.getCurrentLocation();
           if (position) {
             permissionsUpdated = true;
-            setLocationDisplay(`${position.coords.latitude.toFixed(6)}, ${position.coords.longitude.toFixed(6)}`);
+            setLocationDisplay(
+              `${position.coords.latitude.toFixed(6)}, ${position.coords.longitude.toFixed(6)}`,
+            );
             console.log("Location permission granted");
           }
         } catch (error) {
@@ -241,7 +264,7 @@ export default function EmergencyCall() {
         if (deviceFeatures.notifications.permission === "granted") {
           deviceFeatures.notifications.sendNotification("Permissions Enabled", {
             body: "Emergency features are now fully enabled on this device.",
-            tag: "permissions-enabled"
+            tag: "permissions-enabled",
           });
         }
 
@@ -251,11 +274,15 @@ export default function EmergencyCall() {
         }
       } else {
         // Show alert if no permissions were granted
-        alert("To use all emergency features, please enable location and notification permissions in your browser settings.");
+        alert(
+          "To use all emergency features, please enable location and notification permissions in your browser settings.",
+        );
       }
     } catch (error) {
       console.error("Error requesting permissions:", error);
-      alert("There was an error requesting permissions. Please try again or enable them manually in your browser settings.");
+      alert(
+        "There was an error requesting permissions. Please try again or enable them manually in your browser settings.",
+      );
     } finally {
       setIsRequestingPermissions(false);
     }

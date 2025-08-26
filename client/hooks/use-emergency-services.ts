@@ -297,11 +297,14 @@ export function useEmergencyServices(): EmergencyServices {
 
       // Send visual notification if supported
       if (deviceFeatures.notifications.permission === "granted") {
-        deviceFeatures.notifications.sendNotification("🚨 SOS Signal Transmitted", {
-          body: `Emergency SOS sent with location: ${position.coords.latitude.toFixed(4)}, ${position.coords.longitude.toFixed(4)}`,
-          tag: "sos-signal",
-          requireInteraction: true,
-        });
+        deviceFeatures.notifications.sendNotification(
+          "🚨 SOS Signal Transmitted",
+          {
+            body: `Emergency SOS sent with location: ${position.coords.latitude.toFixed(4)}, ${position.coords.longitude.toFixed(4)}`,
+            tag: "sos-signal",
+            requireInteraction: true,
+          },
+        );
       }
 
       console.log("SOS signal sent successfully with location:", {
