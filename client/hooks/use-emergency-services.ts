@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useDeviceFeatures } from "./use-device-features";
-import { emergencyService, EmergencyContact } from "../services/emergencyService";
+import {
+  emergencyService,
+  EmergencyContact,
+} from "../services/emergencyService";
 import {
   EmergencyCallResponse,
   ContactAlertResponse,
   EmergencyHistoryResponse,
 } from "@shared/api";
-
 
 interface EmergencyServices {
   // Emergency calling

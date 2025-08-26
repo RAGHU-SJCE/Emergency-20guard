@@ -19,6 +19,7 @@ Initiates an emergency call and logs the event in the system.
 **Endpoint:** `POST /api/emergency/call`
 
 **Request Body:**
+
 ```json
 {
   "emergencyType": "medical" | "fire" | "police" | "general",
@@ -37,6 +38,7 @@ Initiates an emergency call and logs the event in the system.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -45,7 +47,7 @@ Initiates an emergency call and logs the event in the system.
   "emergencyNumber": "911",
   "location": {
     "latitude": 40.7128,
-    "longitude": -74.0060,
+    "longitude": -74.006,
     "address": "123 Main St, New York, NY"
   },
   "timestamp": "2024-12-24T14:30:00.000Z"
@@ -59,6 +61,7 @@ Sends notifications to emergency contacts via SMS and email.
 **Endpoint:** `POST /api/emergency/alert-contacts`
 
 **Request Body:**
+
 ```json
 {
   "contacts": [
@@ -73,12 +76,13 @@ Sends notifications to emergency contacts via SMS and email.
   "emergencyType": "medical",
   "location": {
     "latitude": 40.7128,
-    "longitude": -74.0060
+    "longitude": -74.006
   }
 }
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -96,12 +100,13 @@ Logs an emergency event for history and audit purposes.
 **Endpoint:** `POST /api/emergency/log-event`
 
 **Request Body:**
+
 ```json
 {
   "type": "Emergency Call - medical",
   "location": {
     "latitude": 40.7128,
-    "longitude": -74.0060,
+    "longitude": -74.006,
     "address": "123 Main St, New York, NY"
   },
   "timestamp": "2024-12-24T14:30:00.000Z",
@@ -111,6 +116,7 @@ Logs an emergency event for history and audit purposes.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -127,11 +133,13 @@ Retrieves emergency history for analysis and reporting.
 **Endpoint:** `GET /api/emergency/history`
 
 **Query Parameters:**
+
 - `userId` (optional): Filter by user ID
 - `limit` (optional): Number of records to return (default: 50)
 - `offset` (optional): Number of records to skip (default: 0)
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -143,7 +151,7 @@ Retrieves emergency history for analysis and reporting.
       "time": "14:30",
       "location": {
         "latitude": 40.7128,
-        "longitude": -74.0060,
+        "longitude": -74.006,
         "address": "123 Main St, New York, NY"
       },
       "status": "Resolved",
@@ -167,9 +175,11 @@ Retrieves emergency statistics and analytics.
 **Endpoint:** `GET /api/emergency/statistics`
 
 **Query Parameters:**
+
 - `userId` (optional): Filter by user ID
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -196,6 +206,7 @@ Checks the health status of the emergency system.
 **Endpoint:** `GET /api/emergency/health`
 
 **Response:**
+
 ```json
 {
   "healthy": true,
@@ -222,6 +233,7 @@ All endpoints return consistent error responses:
 ```
 
 **Common HTTP Status Codes:**
+
 - `200` - Success
 - `400` - Bad Request (invalid request data)
 - `500` - Internal Server Error
@@ -230,6 +242,7 @@ All endpoints return consistent error responses:
 ## Rate Limiting
 
 Emergency endpoints have generous rate limits to ensure availability during crises:
+
 - Emergency call: 10 requests per minute
 - Contact alerts: 5 requests per minute
 - History/Statistics: 60 requests per minute
@@ -247,24 +260,24 @@ Emergency endpoints have generous rate limits to ensure availability during cris
 ### JavaScript/TypeScript
 
 ```typescript
-import { emergencyService } from './services/emergencyService';
+import { emergencyService } from "./services/emergencyService";
 
 // Initiate emergency call
 const response = await emergencyService.initiateEmergencyCall({
-  type: 'medical',
+  type: "medical",
   location: {
     latitude: 40.7128,
-    longitude: -74.0060
-  }
+    longitude: -74.006,
+  },
 });
 
 // Alert emergency contacts
 const alertResponse = await emergencyService.alertEmergencyContacts({
   contacts: [
-    { name: 'John Doe', phone: '+1-555-0123', relationship: 'Spouse' }
+    { name: "John Doe", phone: "+1-555-0123", relationship: "Spouse" },
   ],
-  message: 'Emergency situation - medical emergency.',
-  emergencyType: 'medical'
+  message: "Emergency situation - medical emergency.",
+  emergencyType: "medical",
 });
 ```
 
@@ -292,6 +305,7 @@ curl http://localhost:3000/api/emergency/history?limit=10
 ### Demo Mode
 
 When `DEMO_MODE=true` is set in environment variables:
+
 - No real emergency services are contacted
 - SMS and email notifications are logged to console instead of being sent
 - Emergency numbers return mock data
@@ -300,6 +314,7 @@ When `DEMO_MODE=true` is set in environment variables:
 ### Mock Data
 
 The API includes comprehensive mock data for development and testing:
+
 - Sample emergency events
 - Mock emergency contacts
 - Simulated response times
@@ -308,6 +323,7 @@ The API includes comprehensive mock data for development and testing:
 ## Changelog
 
 ### v1.0.0 (2024-12-24)
+
 - Initial API release
 - Emergency call initiation
 - Contact alert system

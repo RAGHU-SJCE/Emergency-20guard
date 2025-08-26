@@ -13,7 +13,7 @@ const locationService = new LocationService();
 const emergencyController = new EmergencyController(
   emergencyService,
   notificationService,
-  locationService
+  locationService,
 );
 
 // Create router
