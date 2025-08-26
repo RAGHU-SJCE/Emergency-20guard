@@ -112,6 +112,76 @@ export default function EmergencyCall() {
     emergencyServices.callEmergencyNumber(number);
   };
 
+  const handleSendSOS = async () => {
+    try {
+      setIsSendingSOS(true);
+      await emergencyServices.sendSOSSignal();
+
+      // Show success feedback
+      alert("SOS signal sent successfully! Emergency services have been notified of your location.");
+
+      // Log the SOS event
+      await emergencyServices.logEmergencyEvent({
+        type: "SOS Signal Sent",
+        timestamp: new Date().toISOString(),
+        location: emergencyServices.lastKnownLocation?.coords,
+      });
+    } catch (error) {
+      console.error("Failed to send SOS signal:", error);
+      alert("Failed to send SOS signal. Please try again or call emergency services directly.");
+    } finally {
+      setIsSendingSOS(false);
+    }
+  };
+
+  const handleShareLocation = async () => {
+    try {
+      setIsSharingLocation(true);
+      const position = await emergencyServices.shareLocationWithEmergencyServices();
+
+      // Update location display
+      setLocationDisplay(`${position.coords.latitude.toFixed(6)}, ${position.coords.longitude.toFixed(6)}`);
+
+      // Show success feedback
+      if (deviceFeatures.notifications.permission === "granted") {
+        deviceFeatures.notifications.sendNotification("Location Shared", {
+          body: "Your location has been shared with emergency services.",
+          tag: "location-shared"
+        });
+      } else {
+        alert("Location shared successfully with emergency services!");
+      }
+
+      // Vibrate to confirm
+      if (deviceFeatures.vibration.supported) {
+        deviceFeatures.vibration.vibrate([100, 50, 100]);
+      }
+
+      // Log the location sharing event
+      await emergencyServices.logEmergencyEvent({
+        type: "Location Shared",
+        timestamp: new Date().toISOString(),
+        location: {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          accuracy: position.coords.accuracy,
+        },
+      });
+    } catch (error) {
+      console.error("Failed to share location:", error);
+
+      if (error instanceof Error && error.message.includes("not supported")) {
+        alert("Location sharing is not supported on this device. Please enable location services in your browser settings.");
+      } else if (error instanceof Error && error.message.includes("denied")) {
+        alert("Location access denied. Please enable location permissions to share your location with emergency services.");
+      } else {
+        alert("Failed to share location. Please check your location settings and try again.");
+      }
+    } finally {
+      setIsSharingLocation(false);
+    }
+  };
+
   const handleAlertContacts = async () => {
     try {
       const response = await emergencyServices.alertEmergencyContacts(
