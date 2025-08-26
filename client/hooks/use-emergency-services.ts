@@ -187,16 +187,50 @@ export function useEmergencyServices(): EmergencyServices {
         setLastKnownLocation(position);
 
         // In a real implementation, this would send location to emergency services
-        console.log("Location shared with emergency services:", {
+        // For now, we'll simulate API call with emergency service
+        await emergencyService.logEmergencyEvent({
+          type: "Location Shared with Emergency Services",
+          location: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            accuracy: position.coords.accuracy,
+          },
+          timestamp: new Date().toISOString(),
+          details: {
+            method: "manual_share",
+            accuracy: position.coords.accuracy,
+            altitude: position.coords.altitude,
+            heading: position.coords.heading,
+            speed: position.coords.speed,
+          },
+        });
+
+        console.log("Location successfully shared with emergency services:", {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
           accuracy: position.coords.accuracy,
           timestamp: new Date(position.timestamp).toISOString(),
+          googleMapsUrl: `https://maps.google.com/maps?q=${position.coords.latitude},${position.coords.longitude}`,
         });
 
         return position;
       } catch (error) {
         console.error("Failed to share location:", error);
+
+        // Provide specific error messages based on error type
+        if (error instanceof GeolocationPositionError) {
+          switch (error.code) {
+            case error.PERMISSION_DENIED:
+              throw new Error("Location access denied by user");
+            case error.POSITION_UNAVAILABLE:
+              throw new Error("Location information unavailable");
+            case error.TIMEOUT:
+              throw new Error("Location request timed out");
+            default:
+              throw new Error("Unknown location error");
+          }
+        }
+
         throw error;
       }
     };
