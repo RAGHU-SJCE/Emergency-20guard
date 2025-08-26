@@ -217,6 +217,7 @@ export default function EmergencyCall() {
   };
 
   const requestPermissions = async () => {
+    alert("Button clicked! Check console for details.");
     console.log("🔵 requestPermissions called");
     console.log("🔵 Device features:", {
       notifications: {
