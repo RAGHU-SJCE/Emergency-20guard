@@ -228,7 +228,7 @@ export default function EmergencyCall() {
       ) {
         try {
           const permission =
-            await deviceFeatures.notifications.requestNotificationPermission();
+            await deviceFeatures.notifications.requestPermission();
           if (permission === "granted") {
             permissionsUpdated = true;
             console.log("Notification permission granted");
