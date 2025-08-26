@@ -243,7 +243,6 @@ export default function EmergencyCall() {
         deviceFeatures.geolocation.supported &&
         deviceFeatures.geolocation.permission !== "granted"
       ) {
-        console.log("🟡 Requesting location permission...");
         try {
           const position =
             await deviceFeatures.geolocation.getCurrentLocation();
