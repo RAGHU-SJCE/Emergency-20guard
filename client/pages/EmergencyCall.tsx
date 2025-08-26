@@ -231,7 +231,8 @@ export default function EmergencyCall() {
             await deviceFeatures.notifications.requestPermission();
           if (permission === "granted") {
             permissionsUpdated = true;
-            console.log("Notification permission granted");
+          } else if (permission === "denied") {
+            alert("Notification permission was denied. You can enable it manually in your browser settings to receive emergency alerts.");
           }
         } catch (error) {
           console.warn("Notification permission request failed:", error);
