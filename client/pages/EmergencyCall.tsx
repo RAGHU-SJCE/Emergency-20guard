@@ -32,6 +32,7 @@ export default function EmergencyCall() {
     "medical" | "fire" | "police" | "general"
   >("general");
   const [isCallInProgress, setIsCallInProgress] = useState(false);
+  const [isRequestingPermissions, setIsRequestingPermissions] = useState(false);
 
   // Mock emergency contacts for alert functionality
   const emergencyContacts = [
