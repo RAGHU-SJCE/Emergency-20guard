@@ -372,12 +372,22 @@ export default function EmergencyCall() {
               <div className="mt-4 text-center">
                 <Button
                   onClick={requestPermissions}
+                  disabled={isRequestingPermissions}
                   variant="outline"
                   size="sm"
-                  className="border-primary text-primary hover:bg-primary/10"
+                  className="border-primary text-primary hover:bg-primary/10 disabled:opacity-50"
                 >
-                  <Shield className="h-4 w-4 mr-2" />
-                  Enable All Permissions
+                  {isRequestingPermissions ? (
+                    <>
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      Requesting Permissions...
+                    </>
+                  ) : (
+                    <>
+                      <Shield className="h-4 w-4 mr-2" />
+                      Enable All Permissions
+                    </>
+                  )}
                 </Button>
               </div>
             )}
