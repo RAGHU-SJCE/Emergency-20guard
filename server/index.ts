@@ -2,12 +2,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
-import {
-  initiateEmergencyCall,
-  alertEmergencyContacts,
-  logEmergencyEvent,
-  getEmergencyHistory,
-} from "./routes/emergency";
+import emergencyRoutes from "./routes/emergency";
 
 export function createServer() {
   const app = express();
@@ -26,10 +21,7 @@ export function createServer() {
   app.get("/api/demo", handleDemo);
 
   // Emergency API routes
-  app.post("/api/emergency/call", initiateEmergencyCall);
-  app.post("/api/emergency/alert-contacts", alertEmergencyContacts);
-  app.post("/api/emergency/log-event", logEmergencyEvent);
-  app.get("/api/emergency/history", getEmergencyHistory);
+  app.use("/api/emergency", emergencyRoutes);
 
   return app;
 }
