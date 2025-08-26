@@ -1,19 +1,12 @@
 import { useState } from "react";
 import { useDeviceFeatures } from "./use-device-features";
+import { emergencyService, EmergencyContact } from "../services/emergencyService";
 import {
-  EmergencyCallRequest,
   EmergencyCallResponse,
-  ContactAlertRequest,
   ContactAlertResponse,
   EmergencyHistoryResponse,
 } from "@shared/api";
 
-interface EmergencyContact {
-  name: string;
-  phone?: string;
-  email?: string;
-  relationship: string;
-}
 
 interface EmergencyServices {
   // Emergency calling
@@ -70,8 +63,9 @@ export function useEmergencyServices(): EmergencyServices {
         }
       }
 
-      // Prepare emergency call data
-      const emergencyData: EmergencyCallRequest = {
+      // Use the emergency service to make the call
+      const result = await emergencyService.initiateEmergencyCall({
+        type,
         location: location
           ? {
               latitude: location.coords.latitude,
@@ -79,18 +73,7 @@ export function useEmergencyServices(): EmergencyServices {
               accuracy: location.coords.accuracy,
             }
           : undefined,
-        emergencyType: type,
-        timestamp: new Date().toISOString(),
-      };
-
-      // Send to emergency API
-      const response = await fetch("/api/emergency/call", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(emergencyData),
       });
-
-      const result: EmergencyCallResponse = await response.json();
 
       if (result.success) {
         setCurrentEmergencyCall(result);
@@ -119,10 +102,10 @@ export function useEmergencyServices(): EmergencyServices {
         }
 
         // Log the emergency event
-        await logEmergencyEvent({
+        await emergencyService.logEmergencyEvent({
           type: `Emergency Call - ${type}`,
-          location: emergencyData.location,
-          timestamp: emergencyData.timestamp,
+          location: result.location,
+          timestamp: result.timestamp,
           callId: result.callId,
         });
       }
@@ -140,23 +123,7 @@ export function useEmergencyServices(): EmergencyServices {
   };
 
   const callEmergencyNumber = (number: string) => {
-    try {
-      // Use tel: protocol to initiate actual phone call
-      window.open(`tel:${number}`, "_self");
-
-      // Alternative methods for different browsers/devices
-      if ("contacts" in navigator && "ContactsManager" in window) {
-        // For devices that support it, could access contacts
-      }
-
-      // Log that call was attempted
-      console.log(`Emergency call initiated to: ${number}`);
-    } catch (error) {
-      console.error("Failed to initiate phone call:", error);
-
-      // Fallback: Show alert with number to call manually
-      alert(`Please call emergency services immediately at: ${number}`);
-    }
+    emergencyService.makeDirectCall(number);
   };
 
   const alertEmergencyContacts = async (
@@ -176,25 +143,18 @@ export function useEmergencyServices(): EmergencyServices {
         }
       }
 
-      const alertData: ContactAlertRequest = {
+      // Use the emergency service to alert contacts
+      const result = await emergencyService.alertEmergencyContacts({
         contacts,
         message,
+        emergencyType,
         location: location
           ? {
               latitude: location.coords.latitude,
               longitude: location.coords.longitude,
             }
           : undefined,
-        emergencyType,
-      };
-
-      const response = await fetch("/api/emergency/alert-contacts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(alertData),
       });
-
-      const result: ContactAlertResponse = await response.json();
 
       // Send local notification
       if (deviceFeatures.notifications.permission === "granted") {
@@ -240,30 +200,11 @@ export function useEmergencyServices(): EmergencyServices {
     };
 
   const logEmergencyEvent = async (event: any): Promise<void> => {
-    try {
-      await fetch("/api/emergency/log-event", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(event),
-      });
-    } catch (error) {
-      console.error("Failed to log emergency event:", error);
-    }
+    await emergencyService.logEmergencyEvent(event);
   };
 
   const getEmergencyHistory = async (): Promise<EmergencyHistoryResponse> => {
-    try {
-      const response = await fetch("/api/emergency/history");
-      return await response.json();
-    } catch (error) {
-      console.error("Failed to fetch emergency history:", error);
-      return {
-        success: false,
-        history: [],
-        total: 0,
-        message: "Failed to fetch history",
-      };
-    }
+    return await emergencyService.getEmergencyHistory();
   };
 
   const startEmergencyMode = () => {
