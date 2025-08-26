@@ -252,10 +252,12 @@ export default function EmergencyCall() {
             setLocationDisplay(
               `${position.coords.latitude.toFixed(6)}, ${position.coords.longitude.toFixed(6)}`,
             );
-            console.log("Location permission granted");
           }
         } catch (error) {
           console.warn("Location permission denied or unavailable:", error);
+          if (error.message.includes("denied")) {
+            alert("Location permission was denied. You can enable it manually in your browser settings to share your location with emergency services.");
+          }
         }
       }
 
