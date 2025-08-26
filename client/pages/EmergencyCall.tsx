@@ -217,6 +217,18 @@ export default function EmergencyCall() {
   };
 
   const requestPermissions = async () => {
+    console.log("🔵 requestPermissions called");
+    console.log("🔵 Device features:", {
+      notifications: {
+        supported: deviceFeatures.notifications.supported,
+        permission: deviceFeatures.notifications.permission,
+      },
+      geolocation: {
+        supported: deviceFeatures.geolocation.supported,
+        permission: deviceFeatures.geolocation.permission,
+      },
+    });
+
     setIsRequestingPermissions(true);
     let permissionsUpdated = false;
 
@@ -226,6 +238,7 @@ export default function EmergencyCall() {
         deviceFeatures.notifications.supported &&
         deviceFeatures.notifications.permission !== "granted"
       ) {
+        console.log("🟡 Requesting notification permission...");
         try {
           const permission =
             await deviceFeatures.notifications.requestPermission();
